@@ -42,3 +42,19 @@ done
 echo -e ""
 echo -e "=========================================================="
 echo ''
+
+while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
+  read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
+  CONTINUE=${CONTINUE^^}
+done
+
+if [ "$CONTINUE" = 'Y' ]; then
+  # Delete Web Server logs
+  rm -r "${PATH_WEB_LOG:?}""/*"
+
+  # Delete Application Server logs
+  rm -r "${PATH_APP_LOG:?}""/*"
+
+  # Delete Process Scheduler logs
+  rm -r "${PATH_PRCS_LOG:?}""/*"
+fi
