@@ -1,5 +1,11 @@
 #!/bin/bash
 
+delete_directory()
+{
+    arg1=$1
+    rm -r "$arg1"
+}
+
 clear
 
 # Fetch all domains
@@ -50,11 +56,11 @@ done
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Delete Web Server logs
-  rm -r $PATH_WEB_LOG
+  delete_directory $PATH_WEB_LOG
 
   # Delete Application Server logs
-  rm -r $PATH_APP_LOG
+  delete_directory $PATH_APP_LOG
 
   # Delete Process Scheduler logs
-  rm -r $PATH_PRCS_LOG
+  delete_directory $PATH_PRCS_LOG
 fi
