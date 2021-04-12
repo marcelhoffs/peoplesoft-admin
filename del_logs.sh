@@ -28,7 +28,7 @@ echo -e "  -----------------------"
 while read -r app; do
   PATH_APP_LOG="$app"": ""$PS_CFG_HOME""/appserv/""$app""/LOGS/*"
   echo -e "  ""$PATH_APP_LOG"
-done < <(cat domains_app sed -n 1'p' | tr ',' '\n')
+done < <(cat domains_app | comsed -n 1'p' | tr ',' '\n')
 
 # Show Process Scheduler log paths
 echo ''
