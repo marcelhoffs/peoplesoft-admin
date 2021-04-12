@@ -28,14 +28,14 @@ clear
 # Fetch all domains
 ./domains.sh > /dev/null 2>&1
 
-echo -e "=========================================================="
-echo -e ""
-echo -e " Delete log files"
-echo -e " ----------------"
-echo -e " This script will delete all web server, application server"
-echo -e " and process scheduler log files."
-echo -e ""
-echo -e "=========================================================="
+echo -e "╔============================================================╗"
+echo -e "║                                                            ║"
+echo -e "║ Delete log files                                           ║"
+echo -e "║ ----------------                                           ║"
+echo -e "║ This script will delete all web server, application server ║"
+echo -e "║ and process scheduler log files.                           ║" 
+echo -e "║                                                            ║"
+echo -e "╚============================================================╝"
 echo ''
 
 # Show Web Server log paths
