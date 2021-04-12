@@ -2,14 +2,14 @@
 
 clear
 
-echo -e "==========================================================="
-echo -e ""
-echo -e " Start all domains"
-echo -e " -----------------"
-echo -e " This script will start all web server, application server"
-echo -e " and process scheduler domains."
-echo -e ""
-echo -e "==========================================================="
+echo -e "╔════════════════════════════════════════════════════════════╗"
+echo -e "║                                                            ║"
+echo -e "║ Start all domains                                          ║"
+echo -e "║ -----------------                                          ║"
+echo -e "║ This script will start all web server, application server  ║"
+echo -e "║ and process scheduler domains.                             ║"
+echo -e "║                                                            ║"
+echo -e "╚════════════════════════════════════════════════════════════╝"
 echo ''
 
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do

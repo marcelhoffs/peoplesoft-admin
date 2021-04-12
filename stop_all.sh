@@ -2,14 +2,14 @@
 
 clear
 
-echo -e "=========================================================="
-echo -e ""
-echo -e " Stop all domains"
-echo -e " ----------------"
-echo -e " This script will stop all web server, application server"
-echo -e " and process scheduler domains."
-echo -e ""
-echo -e "=========================================================="
+echo -e "╔════════════════════════════════════════════════════════════╗"
+echo -e "║                                                            ║"
+echo -e "║ Stop all domains                                           ║"
+echo -e "║ ----------------                                           ║"
+echo -e "║ This script will stop all web server, application server   ║"
+echo -e "║ and process scheduler domains.                             ║"
+echo -e "║                                                            ║"
+echo -e "╚════════════════════════════════════════════════════════════╝"
 echo ''
 
 while [ "$FORCE" != 'Y' ] && [ "$FORCE" != 'N' ]; do
