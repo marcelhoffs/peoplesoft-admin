@@ -8,7 +8,6 @@ delete_web_server_cache()
 {
   arg1=$1
 
-  rm -r "${arg1:?}/servers/PIA/logs/"*
   rm -r "${arg1:?}/applications/peoplesoft/PORTAL.war/ps/cache/"*
 }
 
