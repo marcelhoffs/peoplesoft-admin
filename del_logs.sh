@@ -26,7 +26,7 @@ done
 echo ''
 echo -e "Process Scheduler logs"
 echo -e "----------------------"
-< domains_app sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
+< domains_prcs sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
   PATH_PRCS_LOG="$prcs"": ""$PS_CFG_HOME""/appserv/prcs/""$prcs""/LOGS"
   echo -e "$PATH_PRCS_LOG"
 done
