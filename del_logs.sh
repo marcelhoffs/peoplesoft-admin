@@ -4,23 +4,23 @@ delete_web_server_logs()
 {
   arg1=$1
 
-  rm -r "$arg1""/*"
+  rm -r "${arg1:?}""/*"
 }
 
 delete_app_server_logs()
 {
   arg1=$1
 
-  rm -r "$arg1""/LOGS/*"
-  rm -r "$arg1""/ULOG.*"
+  rm -r "${arg1:?}""/LOGS/*"
+  rm -r "${arg1:?}""/ULOG.*"
 }
 
 delete_process_scheduler_logs()
 {
   arg1=$1
 
-  rm -r "$arg1""/LOGS/*"
-  rm -r "$arg1""/ULOG.*"
+  rm -r "${arg1:?}""/LOGS/*"
+  rm -r "${arg1:?}""/ULOG.*"
 }
 
 clear
@@ -41,7 +41,6 @@ echo ''
 # Show Web Server log paths
 while read -r web; do
   PATH_WEB_LOG="$PS_CFG_HOME""/webserv/""$web""/servers/PIA/logs"
-  echo -e "  ""$PATH_WEB_LOG"
 done < <(cat domains_web | sed -n 1'p' | tr ',' '\n')
 
 # Show Application Server log paths
@@ -52,7 +51,6 @@ done < <(cat domains_app | sed -n 1'p' | tr ',' '\n')
 # Show Process Scheduler log paths
 while read -r prcs; do
   PATH_PRCS_LOG="$PS_CFG_HOME""/appserv/prcs/""$prcs"
-  echo -e "  ""$PATH_PRCS_LOG"; 
 done < <(cat domains_prcs | sed -n 1'p' | tr ',' '\n')
 
 
