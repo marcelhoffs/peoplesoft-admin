@@ -3,6 +3,9 @@
 delete_directory()
 {
     arg1=$1
+
+    echo ''
+    echo -e ">> Deleting directory: ""$arg1"
     rm -r "$arg1"
 }
 
