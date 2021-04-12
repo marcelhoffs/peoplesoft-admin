@@ -50,11 +50,11 @@ done
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Delete Web Server logs
-  echo "$PATH_WEB_LOG"
+  rm -r "$PATH_WEB_LOG"
 
   # Delete Application Server logs
-  echo "$PATH_APP_LOG"
+  rm -r "$PATH_APP_LOG"
 
   # Delete Process Scheduler logs
-  echo "$PATH_PRCS_LOG"
+  rm -r "$PATH_PRCS_LOG"
 fi
