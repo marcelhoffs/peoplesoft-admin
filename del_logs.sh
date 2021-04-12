@@ -19,7 +19,7 @@ echo -e "  ---------------"
 while read -r web; do
   PATH_WEB_LOG="$web"": ""$PS_CFG_HOME""/webserv/""$web""/servers/PIA/logs/*"
   echo -e "  ""$PATH_WEB_LOG"
-done < <(< domains_web sed -n 1'p' | tr ',' '\n')
+done < <(cat domains_web | sed -n 1'p' | tr ',' '\n')
 
 # Show Application Server log paths
 echo ''
