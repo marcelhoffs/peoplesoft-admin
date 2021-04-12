@@ -2,10 +2,14 @@
 
 clear
 
-echo -e "Stop all domains"
-echo -e "----------------"
-echo -e "This script will stop all web server, application server"
-echo -e "and process scheduler domains."
+echo -e "=========================================================="
+echo -e ""
+echo -e " Stop all domains"
+echo -e " ----------------"
+echo -e " This script will stop all web server, application server"
+echo -e " and process scheduler domains."
+echo -e ""
+echo -e "=========================================================="
 echo ''
 
 while [ "$FORCE" != 'Y' ] && [ "$FORCE" != 'N' ]; do
@@ -22,6 +26,7 @@ done
 
 echo ''
 
+# Determine shutdown command
 if [ "$FORCE" = 'Y' ]; then
   STOP_WEB='shutdown!'
   STOP_APP='kill'
@@ -42,12 +47,14 @@ if [ "$CONTINUE" = 'Y' ]; then
     psadmin -w $STOP_WEB -d "$web"
   done
 
+  # Stop all Application Server domains
   echo ''
   echo -e ">> Stopping all Application Server domains"
   < domains_app sed -n 1'p' | tr ',' '\n' | while read -r app; do
     psadmin -c $STOP_APP -d "$app"
   done
 
+  # Stop all Process Scheduler domains
   echo ''
   echo -e ">> Stopping all Process Scheduler domains"
   < domains_prcs sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
