@@ -34,10 +34,14 @@ done
 echo ''
 echo -e "  Process Scheduler logs"
 echo -e "  ----------------------"
-< domains_prcs sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
+#cat domains_prcs | sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
+#  PATH_PRCS_LOG="$prcs"": ""$PS_CFG_HOME""/appserv/prcs/""$prcs""/LOGS/*"
+#  echo -e "  ""$PATH_PRCS_LOG"
+#done
+while read -r prcs; do
   PATH_PRCS_LOG="$prcs"": ""$PS_CFG_HOME""/appserv/prcs/""$prcs""/LOGS/*"
-  echo -e "  ""$PATH_PRCS_LOG"
-done
+  echo -e "  ""$PATH_PRCS_LOG"; 
+done < <(cat domains_prcs | sed -n 1'p' | tr ',' '\n')
 
 echo -e ""
 echo -e "=========================================================="
