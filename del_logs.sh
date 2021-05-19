@@ -9,7 +9,7 @@ delete_web_server_logs()
   arg1=$1
 
   rm -r "${arg1:?}/servers/PIA/logs/"*
-  rm -r "${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
+  #rm -r "${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
 }
 
 delete_app_server_logs()
