@@ -3,7 +3,7 @@
 if [ "$EUID" -ne 0 ]; then
   # Not root
   echo 'Please run with root privileges:'
-  echo 'sudo ./install_service.sh'
+  echo 'sudo ./uninstall_service.sh'
 else
   # Disable and remove service
   systemctl disable peoplesoft.service
