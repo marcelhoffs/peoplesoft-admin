@@ -1,0 +1,15 @@
+[Unit]
+Description=PeopleSoft Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+TimeoutSec=600
+User=psoft
+ExecStart=/usr/bin/start_ps.sh
+ExecStop=/usr/bin/stop_ps.sh
+
+[Install]
+WantedBy=multi-user.target
