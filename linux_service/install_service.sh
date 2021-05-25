@@ -8,8 +8,8 @@ else
   # Copy scripts to /usr/bin
   cp start_ps.sh /usr/bin
   cp stop_ps.sh /usr/bin
-  chown root:root /usr/bin/start_ps_sh
-  chown root:root /usr/bin/stop_ps_sh
+  chown root:root /usr/bin/start_ps.sh
+  chown root:root /usr/bin/stop_ps.sh
   chmod 755 /usr/bin/start_ps.sh
   chmod 755 /usr/bin/stop_ps.sh
   
