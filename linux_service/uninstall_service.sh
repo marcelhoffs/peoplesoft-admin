@@ -1,9 +1,15 @@
 #!/bin/bash
 
-# Disable and remove service
-systemctl disable peoplesoft.service
-rm -f /etc/systemd/system/peoplesoft.service
+if [ "$EUID" -ne 0 ]; then
+  # Not root
+  echo 'Please run with root privileges:'
+  echo 'sudo ./install_service.sh'
+else
+  # Disable and remove service
+  systemctl disable peoplesoft.service
+  rm -f /etc/systemd/system/peoplesoft.service
 
-# Remove scripts
-rm -f /usr/bin/start_ps.sh
-rm -f /usr/bin/stop_ps.sh
+  # Remove scripts
+  rm -f /usr/bin/start_ps.sh
+  rm -f /usr/bin/stop_ps.sh
+fi
