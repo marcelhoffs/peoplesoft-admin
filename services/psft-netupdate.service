@@ -1,0 +1,16 @@
+[Unit]
+Description=PeopleSoft VirtualBox Network Update Service for pum38.local
+Before=getty-pre.target
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/oracle/psft/pt
+ExecStart=/opt/oracle/psft/pt/psft-netupdate.sh start
+ExecStop=/opt/oracle/psft/pt/psft-netupdate.sh stop
+RemainAfterExit=yes
+TimeoutSec=180
+
+[Install]
+WantedBy=multi-user.target

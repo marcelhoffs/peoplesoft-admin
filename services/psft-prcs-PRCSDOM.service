@@ -1,0 +1,16 @@
+[Unit]
+Description=PeopleSoft Process Scheduler Service for /home/psadm2/psft/pt/8.58/appserv/prcs/PRCSDOM
+Before=getty-pre.target
+After=network-online.target psft-db-HR92U038.service psft-appserver-APPDOM.service
+Wants=network-online.target psft-db-HR92U038.service psft-appserver-APPDOM.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/psadm2/psft/pt/8.58/appserv/prcs/PRCSDOM
+ExecStart=/home/psadm2/psft/pt/8.58/appserv/prcs/PRCSDOM/psft-prcs-PRCSDOM.sh start
+ExecStop=/home/psadm2/psft/pt/8.58/appserv/prcs/PRCSDOM/psft-prcs-PRCSDOM.sh stop
+RemainAfterExit=yes
+TimeoutSec=180
+
+[Install]
+WantedBy=multi-user.target
