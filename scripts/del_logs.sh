@@ -6,26 +6,70 @@
 
 delete_web_server_logs()
 {
-  arg1=$1
+  test=$1
+  arg1=$2
 
-  rm -r "${arg1:?}/servers/PIA/logs/"*
-  #rm -r "${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
+  cmd1_arg="${arg1:?}/servers/PIA/logs/*"
+  #cmd2_arg="${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
+
+  if [ "$test" = 'Y' ]; then
+    echo -e "Web server logs"
+    echo -e "---------------"
+
+    echo "$cmd1_arg"
+    #echo "$cmd2_arg"
+    
+    echo ''
+  else
+    rm -r $cmd1_arg
+    #rm -r $cmd2_arg
+  fi
 }
 
 delete_app_server_logs()
 {
-  arg1=$1
+  test=$1
+  arg1=$2
 
-  rm -r "${arg1:?}/LOGS/"*
-  rm -r "${arg1:?}/"ULOG.*
+  cmd1_arg="${arg1:?}/LOGS/*"
+  cmd2_arg="${arg1:?}/ULOG.*"
+
+  if [ "$test" = 'Y' ]; then
+    echo -e "Application server logs"
+    echo -e "-----------------------"
+
+    # Paths
+    echo "$cmd1_arg"
+    echo "$cmd2_arg"
+
+    echo ''
+  else
+    rm -r $cmd1_arg
+    rm -r $cmd2_arg
+  fi
 }
 
 delete_process_scheduler_logs()
 {
-  arg1=$1
+  test=$1
+  arg1=$2
 
-  rm -r "${arg1:?}/LOGS/"*
-  rm -r "${arg1:?}/"ULOG.*
+  cmd1_arg="${arg1:?}/LOGS/*"
+  cmd2_arg="${arg1:?}/ULOG.*"
+
+  if [ "$test" = 'Y' ]; then
+    echo -e "Process Scheduler logs"
+    echo -e "----------------------"
+    
+    # Paths
+    echo "$cmd1_arg"
+    echo "$cmd2_arg"
+    
+    echo ''
+  else
+    rm -r $cmd1_arg
+    rm -r $cmd2_arg
+  fi
 }
 
 # ================================================================
@@ -63,13 +107,18 @@ done < <(cat domains_prcs | sed -n 1'p' | tr ',' '\n')
 
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
+  # Test mode, just to show the paths that will be deleted
+  delete_web_server_logs 'Y' "$PATH_WEB_LOG"
+  delete_app_server_logs 'Y' "$PATH_APP_LOG"
+  delete_process_scheduler_logs 'Y' "$PATH_PRCS_LOG"
+  
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done
 
 # Delete logs
 if [ "$CONTINUE" = 'Y' ]; then
-  delete_web_server_logs "$PATH_WEB_LOG"
-  delete_app_server_logs "$PATH_APP_LOG"
-  delete_process_scheduler_logs "$PATH_PRCS_LOG"
+  delete_web_server_logs 'N' "$PATH_WEB_LOG"
+  delete_app_server_logs 'N' "$PATH_APP_LOG"
+  delete_process_scheduler_logs 'N' "$PATH_PRCS_LOG"
 fi

@@ -6,23 +6,61 @@
 
 delete_web_server_cache()
 {
-  arg1=$1
+  test=$1
+  arg1=$2
 
-  rm -r "${arg1:?}/applications/peoplesoft/PORTAL.war/ps/cache/"*
+  cmd1_arg="${arg1:?}/applications/peoplesoft/PORTAL.war/ps/cache/*"
+
+  if [ "$test" = 'Y' ]; then
+    echo -e "Web server cache"
+    echo -e "----------------"
+
+    echo "$cmd1_arg"
+        
+    echo ''
+  else
+    rm -r $cmd1_arg
+  fi
 }
 
 delete_app_server_cache()
 {
-  arg1=$1
+  test=$1
+  arg1=$2
 
-  rm -r "${arg1:?}/CACHE/"*
+  cmd1_arg="${arg1:?}/CACHE/*"
+
+  if [ "$test" = 'Y' ]; then
+    echo -e "Application server cache"
+    echo -e "------------------------"
+
+    # Paths
+    echo "$cmd1_arg"
+    
+    echo ''
+  else
+    rm -r $cmd1_arg
+  fi
 }
 
 delete_process_scheduler_cache()
 {
-  arg1=$1
+  test=$1
+  arg1=$2
 
-  rm -r "${arg1:?}/CACHE/"*
+  cmd1_arg="${arg1:?}/CACHE/*"
+
+  if [ "$test" = 'Y' ]; then
+    echo -e "Process Scheduler cache"
+    echo -e "-----------------------"
+
+    # Paths
+    echo "$cmd1_arg"
+    
+    echo ''
+  else
+    rm -r $cmd1_arg
+  fi
 }
 
 # ================================================================
@@ -60,13 +98,18 @@ done < <(cat domains_prcs | sed -n 1'p' | tr ',' '\n')
 
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
+  # Test mode, just to show the paths that will be deleted
+  #delete_web_server_cache 'Y' "$PATH_WEB_CACHE"
+  delete_app_server_cache 'Y' "$PATH_APP_CACHE"
+  delete_process_scheduler_cache 'Y' "$PATH_PRCS_CACHE"
+
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done
 
 # Delete logs
 if [ "$CONTINUE" = 'Y' ]; then
-  delete_web_server_cache "$PATH_WEB_CACHE"
-  delete_app_server_cache "$PATH_APP_CACHE"
-  delete_process_scheduler_cache "$PATH_PRCS_CACHE"
+  #delete_web_server_cache 'N' "$PATH_WEB_CACHE"
+  delete_app_server_cache 'N' "$PATH_APP_CACHE"
+  delete_process_scheduler_cache 'N' "$PATH_PRCS_CACHE"
 fi
