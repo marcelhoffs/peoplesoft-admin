@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
 # ================================================================
 # MAIN
 # ================================================================
@@ -42,25 +46,25 @@ fi
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Fetch all domains
-  ./domains.sh > /dev/null 2>&1
+  sh $SCRIPTPATH/domains.sh > /dev/null 2>&1
 
   # Stop Web Server domains
   echo -e ">> Stopping all Web Server domains"
-  < domains_web sed -n 1'p' | tr ',' '\n' | while read -r web; do
+  < $SCRIPTPATH/domains_web sed -n 1'p' | tr ',' '\n' | while read -r web; do
     psadmin -w $STOP_WEB -d "$web"
   done
 
   # Stop all Application Server domains
   echo ''
   echo -e ">> Stopping all Application Server domains"
-  < domains_app sed -n 1'p' | tr ',' '\n' | while read -r app; do
+  < $SCRIPTPATH/domains_app sed -n 1'p' | tr ',' '\n' | while read -r app; do
     psadmin -c $STOP_APP -d "$app"
   done
 
   # Stop all Process Scheduler domains
   echo ''
   echo -e ">> Stopping all Process Scheduler domains"
-  < domains_prcs sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
+  < $SCRIPTPATH/domains_prcs sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
     psadmin -p $STOP_PRCS -d "$prcs"
   done
 fi
