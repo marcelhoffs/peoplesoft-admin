@@ -112,7 +112,6 @@ echo -e "║ ------------------                                         ║"
 echo -e "║ This script will delete all web server, application server ║"
 echo -e "║ and process scheduler cache files.                         ║"
 echo -e "╚════════════════════════════════════════════════════════════╝"
-echo ''
 
 # Fetch all domains and base paths
 source $SCRIPTPATH/functions.sh
