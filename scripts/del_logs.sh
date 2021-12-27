@@ -17,7 +17,6 @@ delete_web_server_logs() {
   if [ "$TEST" = 'Y' ]; then
     # Show path
     echo "$CMD1_ARG"
-    echo ''
   else
     # Delete
     rm -r $CMD1_ARG
@@ -37,7 +36,6 @@ delete_app_server_logs() {
     # Show path
     echo "$CMD1_ARG"
     echo "$CMD2_ARG"
-    echo ''
   else
     # Delete
     rm -r $CMD1_ARG
@@ -58,7 +56,6 @@ delete_process_scheduler_logs() {
     # Show path
     echo "$CMD1_ARG"
     echo "$CMD2_ARG"
-    echo ''
   else
     # Delete
     rm -r $CMD1_ARG
@@ -84,6 +81,7 @@ delete_logs() {
 
   # Application Server
   if [ "$TEST" = 'Y' ]; then
+   echo ''
     echo -e "Application server logs"
     echo -e "-----------------------"
   fi
@@ -94,6 +92,7 @@ delete_logs() {
 
   # Process Scheduler
   if [ "$TEST" = 'Y' ]; then
+    echo ''
     echo -e "Process Scheduler logs"
     echo -e "----------------------"
   fi
@@ -114,18 +113,21 @@ echo -e "║ ----------------                                           ║"
 echo -e "║ This script will delete all web server, application server ║"
 echo -e "║ and process scheduler log files.                           ║"
 echo -e "╚════════════════════════════════════════════════════════════╝"
-echo ''
 
 # Fetch all domains and base paths
 source $SCRIPTPATH/functions.sh
 get_domains
 get_domain_base_paths
 
+# TEST mode, just to show the paths that will be deleted
+delete_logs 'Y'
+
+echo ''
+echo -e "--------------------------------------------------------------"
+echo ''
+
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-  # TEST mode, just to show the paths that will be deleted
-  delete_logs 'Y'
-
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done

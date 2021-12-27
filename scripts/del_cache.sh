@@ -127,8 +127,6 @@ echo ''
 
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-
-
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done
