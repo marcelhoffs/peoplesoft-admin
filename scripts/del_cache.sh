@@ -30,11 +30,7 @@ delete_web_server_cache()
   cmd1_arg="${arg1:?}/applications/peoplesoft/PORTAL.war/ps/cache/*"
 
   if [ "$test" = 'Y' ]; then
-    echo -e "Web server cache"
-    echo -e "----------------"
-
     echo "$cmd1_arg"
-        
     echo ''
   else
     rm -r $cmd1_arg
@@ -51,12 +47,7 @@ delete_app_server_cache()
   cmd1_arg="${arg1:?}/CACHE/*"
 
   if [ "$test" = 'Y' ]; then
-    echo -e "Application server cache"
-    echo -e "------------------------"
-
-    # Paths
     echo "$cmd1_arg"
-    
     echo ''
   else
     rm -r $cmd1_arg
@@ -73,12 +64,7 @@ delete_process_scheduler_cache()
   cmd1_arg="${arg1:?}/CACHE/*"
 
   if [ "$test" = 'Y' ]; then
-    echo -e "Process Scheduler cache"
-    echo -e "-----------------------"
-
-    # Paths
     echo "$cmd1_arg"
-    
     echo ''
   else
     rm -r $cmd1_arg

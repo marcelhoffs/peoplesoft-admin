@@ -48,7 +48,6 @@ delete_app_server_logs()
   cmd2_arg="${arg1:?}/ULOG.*"
 
   if [ "$test" = 'Y' ]; then
-    # Paths
     echo "$cmd1_arg"
     echo "$cmd2_arg"
     echo ''
@@ -69,7 +68,6 @@ delete_process_scheduler_logs()
   cmd2_arg="${arg1:?}/ULOG.*"
 
   if [ "$test" = 'Y' ]; then
-    # Paths
     echo "$cmd1_arg"
     echo "$cmd2_arg"
     echo ''
