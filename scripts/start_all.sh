@@ -55,7 +55,7 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo ''
     echo -e "-------------------------------------------------------"
     echo -e ">> Starting Process Scheduler domain:" "${ARR_PRCS[$i]}"
-    echo -e "-------------------------------------------------------".
+    echo -e "-------------------------------------------------------"
     echo ''
 
     psadmin -p start -d "${ARR_PRCS[$i]}"
