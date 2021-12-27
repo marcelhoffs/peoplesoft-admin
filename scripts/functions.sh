@@ -27,19 +27,19 @@ get_domain_base_paths()
   # Determine Web Server log paths
   for i in "${!arrweb[@]}" 
   do
-    PATH_WEB_LOG[$i]="${PS_CFG_HOME}/webserv/${arrweb[$i]}"  
+    arrwebbase[$i]="${PS_CFG_HOME}/webserv/${arrweb[$i]}"  
   done
 
   # Determine Application Server log paths
   for i in "${!arrapp[@]}" 
   do
-    PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/${arrapp[$i]}"
+    arrappbase[$i]="${PS_CFG_HOME}/appserv/${arrapp[$i]}"
   done
 
   # Determine Process Scheduler log paths
   for i in "${!arrprcs[@]}" 
   do
-    PATH_PRCS_LOG[$i]="${PS_CFG_HOME}/appserv/prcs/${arrprcs[$i]}"
+    arrprcsbase[$i]="${PS_CFG_HOME}/appserv/prcs/${arrprcs[$i]}"
   done
 }
 

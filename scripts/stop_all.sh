@@ -1,25 +1,5 @@
 #!/bin/bash
 
-# Constants
-IFS=','
-
-# ================================================================
-# FUNCTIONS
-# ================================================================
-
-get_domains()
-{
-  # Get PeopleSoft domains
-  appdomains=$(psadmin -c list)
-  prcsdomains=$(psadmin -p list)
-  webdomains=$(psadmin -w list)
-
-  # Put domains in array
-  read -a arrapp <<< "$appdomains"
-  read -a arrprcs <<< "$prcsdomains"
-  read -a arrweb <<< "$webdomains"
-}
-
 # ================================================================
 # MAIN
 # ================================================================
@@ -60,6 +40,7 @@ fi
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
+  source ./functions.sh
   get_domains
   
   # Stop Web Server domains

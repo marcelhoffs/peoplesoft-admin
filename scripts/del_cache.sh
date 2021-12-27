@@ -79,25 +79,25 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   echo ''
   echo -e "Web server cache"
   echo -e "----------------"
-  for i in "${!PATH_WEB_LOG[@]}"
+  for i in "${!arrwebbase[@]}"
   do
-    delete_web_server_cache 'Y' "${PATH_WEB_LOG[$i]}"
+    delete_web_server_cache 'Y' "${arrwebbase[$i]}"
   done
 
   # Application Server
   echo -e "Application server cache"
   echo -e "------------------------"
-  for i in "${!PATH_APP_LOG[@]}"
+  for i in "${!arrappbase[@]}"
   do
-    delete_app_server_cache 'Y' "${PATH_APP_LOG[$i]}"
+    delete_app_server_cache 'Y' "${arrappbase[$i]}"
   done
 
   # Process Scheduler
   echo -e "Process Scheduler cache"
   echo -e "-----------------------"
-  for i in "${!PATH_PRCS_LOG[@]}"
+  for i in "${!arrprcsbase[@]}"
   do
-    delete_process_scheduler_cache 'Y' "${PATH_PRCS_LOG[$i]}"
+    delete_process_scheduler_cache 'Y' "${arrprcsbase[$i]}"
   done
   
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
@@ -107,20 +107,20 @@ done
 # Delete cache
 if [ "$CONTINUE" = 'Y' ]; then
   # Delete web server logs
-  #for i in "${!PATH_WEB_LOG[@]}"
+  #for i in "${!arrwebbase[@]}"
   #do
-  #  delete_web_server_cache 'N' "${PATH_WEB_LOG[$i]}"
+  #  delete_web_server_cache 'N' "${arrwebbase[$i]}"
   #done
 
   # Delete application server logs
-  for i in "${!PATH_APP_LOG[@]}"
+  for i in "${!arrappbase[@]}"
   do
-    delete_app_server_cache 'N' "${PATH_APP_LOG[$i]}"
+    delete_app_server_cache 'N' "${arrappbase[$i]}"
   done
 
   # Delete proces scheduler logs
-  for i in "${!PATH_PRCS_LOG[@]}"
+  for i in "${!arrprcsbase[@]}"
   do
-    delete_process_scheduler_cache 'N' "${PATH_PRCS_LOG[$i]}"
+    delete_process_scheduler_cache 'N' "${arrprcsbase[$i]}"
   done
 fi
