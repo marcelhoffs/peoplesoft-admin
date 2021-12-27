@@ -1,8 +1,26 @@
 #!/bin/bash
 
+# Constants
+IFS=','
+
 # ================================================================
 # FUNCTIONS
 # ================================================================
+
+get_domains()
+{
+  # Get PeopleSoft domains
+  appdomains=$(psadmin -c list)
+  prcsdomains=$(psadmin -p list)
+  webdomains=$(psadmin -w list)
+
+  # Put domains in array
+  read -a arrapp <<< "$appdomains"
+  read -a arrprcs <<< "$prcsdomains"
+  read -a arrweb <<< "$webdomains"
+}
+
+# ----------------------------------------------------------------
 
 delete_web_server_cache()
 {
@@ -23,6 +41,8 @@ delete_web_server_cache()
   fi
 }
 
+# ----------------------------------------------------------------
+
 delete_app_server_cache()
 {
   test=$1
@@ -42,6 +62,8 @@ delete_app_server_cache()
     rm -r $cmd1_arg
   fi
 }
+
+# ----------------------------------------------------------------
 
 delete_process_scheduler_cache()
 {
@@ -68,48 +90,71 @@ delete_process_scheduler_cache()
 # ================================================================
 clear
 
-# Fetch all domains
-./domains.sh > /dev/null 2>&1
-
 echo -e "╔════════════════════════════════════════════════════════════╗"
-echo -e "║                                                            ║"
 echo -e "║ Delete cache files                                         ║"
 echo -e "║ ------------------                                         ║"
 echo -e "║ This script will delete all web server, application server ║"
 echo -e "║ and process scheduler cache files.                         ║" 
-echo -e "║                                                            ║"
 echo -e "╚════════════════════════════════════════════════════════════╝"
 echo ''
 
+# Fetch all domains
+get_domains
+
 # Determine Web Server log paths
-while read -r web; do
-  PATH_WEB_CACHE="${PS_CFG_HOME}/webserv/${web}"
-done < <(cat domains_web | sed -n 1'p' | tr ',' '\n')
+for i in "${!arrweb[@]}" 
+do
+  PATH_WEB_LOG[$i]="${PS_CFG_HOME}/webserv/${arrweb[$i]}"  
+done
 
 # Determine Application Server log paths
-while read -r app; do
-  PATH_APP_CACHE="${PS_CFG_HOME}/appserv/${app}"
-done < <(cat domains_app | sed -n 1'p' | tr ',' '\n')
+for i in "${!arrapp[@]}" 
+do
+  PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/${arrapp[$i]}"
+done
 
 # Determine Process Scheduler log paths
-while read -r prcs; do
-  PATH_PRCS_CACHE="${PS_CFG_HOME}/appserv/prcs/${prcs}"
-done < <(cat domains_prcs | sed -n 1'p' | tr ',' '\n')
+for i in "${!arrprcs[@]}" 
+do
+  PATH_PRCS_LOG[$i]="${PS_CFG_HOME}/appserv/prcs/${arrprcs[$i]}"
+done
 
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-  # Test mode, just to show the paths that will be deleted
-  #delete_web_server_cache 'Y' "$PATH_WEB_CACHE"
-  delete_app_server_cache 'Y' "$PATH_APP_CACHE"
-  delete_process_scheduler_cache 'Y' "$PATH_PRCS_CACHE"
+ # Test mode, just to show the paths that will be deleted
+  
+  # Web Server
+  echo ''
+  echo -e "Web server cache"
+  echo -e "----------------"
+  for i in "${!PATH_WEB_LOG[@]}"
+  do
+    delete_web_server_cache 'Y' "${PATH_WEB_LOG[$i]}"
+  done
 
+  # Application Server
+  echo -e "Application server cache"
+  echo -e "------------------------"
+  for i in "${!PATH_APP_LOG[@]}"
+  do
+    delete_app_server_cache 'Y' "${PATH_APP_LOG[$i]}"
+  done
+
+  # Process Scheduler
+  echo -e "Process Scheduler cache"
+  echo -e "-----------------------"
+  for i in "${!PATH_PRCS_LOG[@]}"
+  do
+    delete_process_scheduler_cache 'Y' "${PATH_PRCS_LOG[$i]}"
+  done
+  
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done
 
-# Delete logs
+# Delete cache
 if [ "$CONTINUE" = 'Y' ]; then
   #delete_web_server_cache 'N' "$PATH_WEB_CACHE"
-  delete_app_server_cache 'N' "$PATH_APP_CACHE"
-  delete_process_scheduler_cache 'N' "$PATH_PRCS_CACHE"
+  #delete_app_server_cache 'N' "$PATH_APP_CACHE"
+  #delete_process_scheduler_cache 'N' "$PATH_PRCS_CACHE"
 fi
