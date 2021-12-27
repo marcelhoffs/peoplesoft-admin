@@ -9,9 +9,9 @@ IFS=','
 
 get_domains() {
   # Get PeopleSoft domains
-  APPDOMAINS=$(psadmin -c list)
-  PRCSDOMAINS=$(psadmin -p list)
-  WEBDOMAINS=$(psadmin -w list)
+  APPDOMAINS=$(psadmin -c list 2>/dev/null)
+  PRCSDOMAINS=$(psadmin -p list 2>/dev/null)
+  WEBDOMAINS=$(psadmin -w list 2>/dev/null)
 
   # Put domains in array
   read -a ARR_APP <<<"$APPDOMAINS"
