@@ -132,7 +132,8 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   
   for i in "${!PATH_WEB_LOG[@]}"
   do
-    delete_web_server_logs 'Y' "${PATH_WEB_LOG[$i]}"
+    echo "${PATH_WEB_LOG[$i]}" 
+    #delete_web_server_logs 'Y' "${PATH_WEB_LOG[$i]}"
   done
 
   #delete_process_scheduler_logs 'Y' "$PATH_PRCS_LOG"
