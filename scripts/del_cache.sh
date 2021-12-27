@@ -68,35 +68,32 @@ delete_cache() {
   TEST=$1
 
   # Web Server
-  if [ "$TEST" = 'Y' ]; then
-    echo ''
-    echo -e "Web server cache"
-    echo -e "----------------"
-  fi
-
   for i in "${!ARR_WEB_BASE[@]}"; do
+    if [ "$TEST" = 'Y' ] && [ $i = 0 ]; then
+      echo ''
+      echo -e "Web server cache"
+      echo -e "----------------"
+    fi
     delete_web_server_cache "$TEST" "${ARR_WEB_BASE[$i]}"
   done
 
   # Application Server
-  if [ "$TEST" = 'Y' ]; then
-    echo ''
-    echo -e "Application server cache"
-    echo -e "------------------------"
-  fi
-
   for i in "${!ARR_APP_BASE[@]}"; do
+    if [ "$TEST" = 'Y' ] && [ $i = 0 ]; then
+      echo ''
+      echo -e "Application server cache"
+      echo -e "------------------------"
+    fi
     delete_app_server_cache "$TEST" "${ARR_APP_BASE[$i]}"
   done
 
   # Process Scheduler
-  if [ "$TEST" = 'Y' ]; then
-    echo ''
-    echo -e "Process Scheduler cache"
-    echo -e "-----------------------"
-  fi
-
   for i in "${!ARR_PRCS_BASE[@]}"; do
+    if [ "$TEST" = 'Y' ] && [ $i = 0 ]; then
+      echo ''
+      echo -e "Process Scheduler cache"
+      echo -e "-----------------------"
+    fi
     delete_process_scheduler_cache "$TEST" "${ARR_PRCS_BASE[$i]}"
   done
 }
