@@ -119,7 +119,8 @@ get_domains
 for i in "${!arrapp[@]}" 
 do
   echo "$i" "${arrapp[$i]}"
-  #PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/$i"
+  PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/${arrapp[$i]}"
+  echo "${PATH_APP_LOG[$i]}"
 done
 
 # Determine Process Scheduler log paths
