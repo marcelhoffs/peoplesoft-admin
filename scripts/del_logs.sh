@@ -29,9 +29,6 @@ delete_web_server_logs()
   #cmd2_arg="${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
 
   if [ "$test" = 'Y' ]; then
-    echo -e "Web server logs"
-    echo -e "---------------"
-
     echo "$cmd1_arg"
     #echo "$cmd2_arg"
     
@@ -132,6 +129,9 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   
   for i in "${!PATH_WEB_LOG[@]}"
   do
+    echo -e "Web server logs"
+    echo -e "---------------"
+
     delete_web_server_logs 'Y' "${PATH_WEB_LOG[$i]}"
   done
 
