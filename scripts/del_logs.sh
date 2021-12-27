@@ -70,7 +70,7 @@ delete_logs() {
 
   # Web Server
   for i in "${!ARR_WEB_BASE[@]}"; do
-    if [ "$TEST" = 'Y' && $i = 0 ]; then
+    if [ "$TEST" = 'Y' && $i = '0' ]; then
       echo ''
       echo -e "Web server logs"
       echo -e "---------------"
@@ -80,7 +80,7 @@ delete_logs() {
 
   # Application Server
   for i in "${!ARR_APP_BASE[@]}"; do
-    if [ "$TEST" = 'Y' && $i = 0]; then
+    if [ "$TEST" = 'Y' && $i = '0' ]; then
       echo ''
       echo -e "Application server logs"
       echo -e "-----------------------"
@@ -90,7 +90,7 @@ delete_logs() {
 
   # Process Scheduler
   for i in "${!ARR_PRCS_BASE[@]}"; do
-    if [ "$TEST" = 'Y' && $i = 0 ]; then
+    if [ "$TEST" = 'Y' && $i = '0' ]; then
       echo ''
       echo -e "Process Scheduler logs"
       echo -e "----------------------"
