@@ -44,7 +44,7 @@ fi
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
-  source ./functions.sh
+  source $SCRIPTPATH/functions.sh
   get_domains
   
   # Stop Web Server domains
