@@ -4,6 +4,23 @@
 IFS=','
 
 # ================================================================
+# FUNCTIONS
+# ================================================================
+
+get_domains()
+{
+  # Get PeopleSoft domains
+  appdomains=$(psadmin -c list)
+  prcsdomains=$(psadmin -p list)
+  webdomains=$(psadmin -w list)
+
+  # Put domains in array
+  read -a arrapp <<< "$appdomains"
+  read -a arrprcs <<< "$prcsdomains"
+  read -a arrweb <<< "$webdomains"
+}
+
+# ================================================================
 # MAIN
 # ================================================================
 clear
@@ -44,15 +61,8 @@ else
 fi
 
 if [ "$CONTINUE" = 'Y' ]; then
-  # Get PeopleSoft domains
-  appdomains=$(psadmin -c list)
-  prcsdomains=$(psadmin -p list)
-  webdomains=$(psadmin -w list)
-
-  # Put domains in array
-  read -a arrapp <<< "$appdomains"
-  read -a arrprcs <<< "$prcsdomains"
-  read -a arrweb <<< "$webdomains"
+  # Get domains
+  get_domains
   
   # Stop Web Server domains
   for web in "${arrweb[@]}" 
@@ -62,7 +72,7 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e ">> Stopping Web Server domain:" "$web"
     echo -e "-------------------------------------------------------"
     echo ''
-    
+
     psadmin -w $STOP_WEB -d "$web"
   done  
 

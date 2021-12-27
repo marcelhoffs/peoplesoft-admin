@@ -4,6 +4,23 @@
 IFS=','
 
 # ================================================================
+# FUNCTIONS
+# ================================================================
+
+get_domains()
+{
+  # Get PeopleSoft domains
+  appdomains=$(psadmin -c list)
+  prcsdomains=$(psadmin -p list)
+  webdomains=$(psadmin -w list)
+
+  # Put domains in array
+  read -a arrapp <<< "$appdomains"
+  read -a arrprcs <<< "$prcsdomains"
+  read -a arrweb <<< "$webdomains"
+}
+
+# ================================================================
 # MAIN
 # ================================================================
 clear
@@ -26,15 +43,8 @@ done
 echo ''
 
 if [ "$CONTINUE" = 'Y' ]; then
-  # Get PeopleSoft domains
-  appdomains=$(psadmin -c list)
-  prcsdomains=$(psadmin -p list)
-  webdomains=$(psadmin -w list)
-
-  # Put domains in array
-  read -a arrapp <<< "$appdomains"
-  read -a arrprcs <<< "$prcsdomains"
-  read -a arrweb <<< "$webdomains"
+  # Get domains
+  get_domains
   
   # Start Application Server domains
   for app in "${arrapp[@]}" 
@@ -69,7 +79,7 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e ">> Starting Process Scheduler domain:" "$prcs"
     echo -e "-------------------------------------------------------".
     echo ''
-    
+
     psadmin -p start -d "$prcs"
   done  
 fi
