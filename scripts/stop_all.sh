@@ -55,26 +55,38 @@ if [ "$CONTINUE" = 'Y' ]; then
   read -a arrweb <<< "$webdomains"
   
   # Stop Web Server domains
-  echo ''
   for web in "${arrweb[@]}" 
   do
+    echo ''
+    echo -e "-------------------------------------------------------"
     echo -e ">> Stopping Web Server domain:" "$web"
+    echo -e "-------------------------------------------------------"
+    echo ''
+    
     psadmin -w $STOP_WEB -d "$web"
   done  
 
   # Stop Application Server domains
-  echo ''
   for app in "${arrapp[@]}" 
   do
+    echo ''
+    echo -e "-------------------------------------------------------"
     echo -e ">> Stopping Application Server domain:" "$app"
+    echo -e "-------------------------------------------------------"
+    echo ''    
+
     psadmin -c $STOP_APP -d "$app"
   done  
 
   # Stop Process Scheduler domains
-  echo ''
   for prcs in "${arrprcs[@]}" 
   do
+    echo ''
+    echo -e "-------------------------------------------------------"
     echo -e ">> Stopping Process Scheduler domain:" "$prcs"
+    echo -e "-------------------------------------------------------"
+    echo ''
+    
     psadmin -p $STOP_PRCS -d "$prcs"
   done  
 fi

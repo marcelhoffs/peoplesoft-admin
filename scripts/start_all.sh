@@ -37,18 +37,26 @@ if [ "$CONTINUE" = 'Y' ]; then
   read -a arrweb <<< "$webdomains"
   
   # Start Application Server domains
-  echo ''
   for app in "${arrapp[@]}" 
   do
+    echo ''
+    echo -e "-------------------------------------------------------"
     echo -e ">> Starting Application Server domain:" "$app"
+    echo -e "-------------------------------------------------------"
+    echo ''
+
     psadmin -c start -d "$app"
   done  
 
   # Start Web Server domains
-  echo ''
   for web in "${arrweb[@]}" 
   do
+    echo ''
+    echo -e "-------------------------------------------------------"
     echo -e ">> Starting Web Server domain:" "$web"
+    echo -e "-------------------------------------------------------"
+    echo ''
+
     psadmin -w start -d "$web"
   done  
 
@@ -56,7 +64,12 @@ if [ "$CONTINUE" = 'Y' ]; then
   echo ''
   for prcs in "${arrprcs[@]}" 
   do
+    echo ''
+    echo -e "-------------------------------------------------------"
     echo -e ">> Starting Process Scheduler domain:" "$prcs"
+    echo -e "-------------------------------------------------------".
+    echo ''
+    
     psadmin -p start -d "$prcs"
   done  
 fi
