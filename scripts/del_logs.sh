@@ -127,11 +127,10 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   # Test mode, just to show the paths that will be deleted
   #delete_web_server_logs 'Y' "$PATH_WEB_LOG"
   
+  echo -e "Web server logs"
+  echo -e "---------------"
   for i in "${!PATH_WEB_LOG[@]}"
   do
-    echo -e "Web server logs"
-    echo -e "---------------"
-
     delete_web_server_logs 'Y' "${PATH_WEB_LOG[$i]}"
   done
 
