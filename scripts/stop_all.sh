@@ -55,12 +55,12 @@ if [ "$CONTINUE" = 'Y' ]; then
   #done
 
   # Stop all Application Server domains
-  echo ''
-  echo -e ">> Stopping all Application Server domains"
-  < psadmin -c list | while read -r app; do
+  #echo ''
+  #echo -e ">> Stopping all Application Server domains"
+  #< psadmin -c list | while read -r app; do
   #  psadmin -c $STOP_APP -d "$app"
-  echo 'psadmin -C' "$STOP_APP" '-d' "$app"
-  done
+  #echo 'psadmin -C' "$STOP_APP" '-d' "$app"
+  #done
 
   # Stop all Process Scheduler domains
   #echo ''
@@ -68,4 +68,8 @@ if [ "$CONTINUE" = 'Y' ]; then
   #< psadmin -p list | while read -r prcs; do
   #  psadmin -p $STOP_PRCS -d "$prcs"
   #done
+
+  psadmin -c list | sed -n 1'p' | tr ',' '\n' | while read word; do
+    echo $word
+  done
 fi
