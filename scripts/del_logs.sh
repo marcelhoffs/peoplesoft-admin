@@ -21,26 +21,26 @@ get_domains()
 }
 
 #delete_web_server_logs()
-#{
-#  test=$1
-#  arg1=$2
-#
-#  cmd1_arg="${arg1:?}/servers/PIA/logs/*"
-#  #cmd2_arg="${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
-#
-#  if [ "$test" = 'Y' ]; then
-#    echo -e "Web server logs"
-#    echo -e "---------------"
-#
-#    echo "$cmd1_arg"
-#    #echo "$cmd2_arg"
-#    
-#    echo ''
-#  else
-#    rm -r $cmd1_arg
-#    #rm -r $cmd2_arg
-#  fi
-#}
+{
+  test=$1
+  arg1=$2
+
+  cmd1_arg="${arg1:?}/servers/PIA/logs/*"
+  #cmd2_arg="${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
+
+  if [ "$test" = 'Y' ]; then
+    echo -e "Web server logs"
+    echo -e "---------------"
+
+    echo "$cmd1_arg"
+    #echo "$cmd2_arg"
+    
+    echo ''
+  else
+    rm -r $cmd1_arg
+    #rm -r $cmd2_arg
+  fi
+}
 #
 #delete_app_server_logs()
 #{
