@@ -81,17 +81,20 @@ if [ "$CONTINUE" = 'Y' ]; then
   read -a arrweb <<< "$webdomains"
   
   # Stop Web Server domains
-  for i in "${arrweb[@]}" do
+  for i in "${arrweb[@]}" 
+  do
     echo "$i"
   done  
 
   # Stop Application Server domains
-  for i in "${arrapp[@]}" do
+  for i in "${arrapp[@]}" 
+  do
     echo "$i"
   done  
 
   # Stop Process Scheduler domains
-  for i in "${arrprcs[@]}" do
+  for i in "${arrprcs[@]}" 
+  do
     echo "$i"
   done  
 fi
