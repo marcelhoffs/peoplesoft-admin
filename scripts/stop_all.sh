@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# Absolute path to this script
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
+# Constants
 IFS=','
 
 # ================================================================
@@ -46,30 +44,6 @@ else
 fi
 
 if [ "$CONTINUE" = 'Y' ]; then
-  # Fetch all domains
-  #sh $SCRIPTPATH/domains.sh > /dev/null 2>&1
-
-  # Stop Web Server domains
-  #echo -e ">> Stopping all Web Server domains"
-  #< psadmin -w list | while read -r web; do
-  #  psadmin -w $STOP_WEB -d "$web"
-  #done
-
-  # Stop all Application Server domains
-  #echo ''
-  #echo -e ">> Stopping all Application Server domains"
-  #< psadmin -c list | while read -r app; do
-  #  psadmin -c $STOP_APP -d "$app"
-  #echo 'psadmin -C' "$STOP_APP" '-d' "$app"
-  #done
-
-  # Stop all Process Scheduler domains
-  #echo ''
-  #echo -e ">> Stopping all Process Scheduler domains"
-  #< psadmin -p list | while read -r prcs; do
-  #  psadmin -p $STOP_PRCS -d "$prcs"
-  #done
-
   # Get PeopleSoft domains
   appdomains=$(psadmin -c list)
   prcsdomains=$(psadmin -p list)
@@ -81,20 +55,25 @@ if [ "$CONTINUE" = 'Y' ]; then
   read -a arrweb <<< "$webdomains"
   
   # Stop Web Server domains
-  for i in "${arrweb[@]}" 
+  echo -e ">> Stopping all Web Server domains"
+  for web in "${arrweb[@]}" 
   do
-    echo "$i"
+    psadmin -w $STOP_WEB -d "$web"
   done  
 
   # Stop Application Server domains
-  for i in "${arrapp[@]}" 
+  echo ''
+  echo -e ">> Stopping all Application Server domains"
+  for app in "${arrapp[@]}" 
   do
-    echo "$i"
+    psadmin -c $STOP_APP -d "$app"
   done  
 
   # Stop Process Scheduler domains
-  for i in "${arrprcs[@]}" 
+  echo ''
+  echo -e ">> Stopping all Process Scheduler domains"
+  for prcs in "${arrprcs[@]}" 
   do
-    echo "$i"
+    psadmin -p $STOP_PRCS -d "$prcs"
   done  
 fi
