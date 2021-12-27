@@ -115,7 +115,7 @@ get_domains
 
 for app in "${arrapp[@]}" 
 do
-  PATH_APP_LOG[$app]="${PS_CFG_HOME}/appserv/${app}"
+  PATH_APP_LOG[$app]="${PS_CFG_HOME}/appserv/$app"
 done
 
 # Determine Process Scheduler log paths
@@ -127,7 +127,12 @@ done
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   # Test mode, just to show the paths that will be deleted
   #delete_web_server_logs 'Y' "$PATH_WEB_LOG"
-  delete_app_server_logs 'Y' "$PATH_APP_LOG"
+  
+  for apppath in "${PATH_APP_LOG[@]}"
+    delete_app_server_logs 'Y' "$PATH_APP_LOG"
+  do
+  done
+
   #delete_process_scheduler_logs 'Y' "$PATH_PRCS_LOG"
   
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
