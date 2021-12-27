@@ -116,14 +116,20 @@ echo -e "╚══════════════════════�
 echo ''
 
 # Fetch all domains and base paths
-source $SCRIPTPATH/functions.sh >/dev/null 2>&1
+source $SCRIPTPATH/functions.sh
 get_domains
 get_domain_base_paths
 
+# TEST mode, just to show the paths that will be deleted
+delete_cache 'Y'
+
+echo ''
+echo -e "--------------------------------------------------------------"
+echo ''
+
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-  # TEST mode, just to show the paths that will be deleted
-  delete_cache 'Y'
+
 
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}

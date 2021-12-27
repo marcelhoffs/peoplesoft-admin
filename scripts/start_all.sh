@@ -26,7 +26,7 @@ echo ''
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
-  source $SCRIPTPATH/functions.sh >/dev/null 2>&1
+  source $SCRIPTPATH/functions.sh
   get_domains
 
   # Start Application Server domains
