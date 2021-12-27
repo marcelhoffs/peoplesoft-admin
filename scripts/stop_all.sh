@@ -3,6 +3,7 @@
 # Absolute path to this script
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
+IFS=','
 
 # ================================================================
 # MAIN
@@ -69,7 +70,28 @@ if [ "$CONTINUE" = 'Y' ]; then
   #  psadmin -p $STOP_PRCS -d "$prcs"
   #done
 
-  psadmin -c list | sed -n 1'p' | tr ',' '\n' | while read word; do
-    echo $word
-  done
+  # Get PeopleSoft domains
+  appdomains=$(psadmin -c list)
+  prcsdomains=$(psadmin -p list)
+  webdomains=$(psadmin -w list)
+
+  # Put domains in array
+  read -a arrapp <<< "$appdomains"
+  read -a arrprcs <<< "$prcsdomains"
+  read -a arrweb <<< "$webdomains"
+  
+  # Stop Web Server domains
+  for i in "${arrweb[@]}" do
+    echo "$i"
+  done  
+
+  # Stop Application Server domains
+  for i in "${arrapp[@]}" do
+    echo "$i"
+  done  
+
+  # Stop Process Scheduler domains
+  for i in "${arrprcs[@]}" do
+    echo "$i"
+  done  
 fi
