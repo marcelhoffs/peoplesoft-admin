@@ -41,7 +41,7 @@ if [ "$CONTINUE" = 'Y' ]; then
   for app in "${arrapp[@]}" 
   do
     echo -e ">> Starting Application Server domain:" "$app"
-    psadmin -c start "$app"
+    psadmin -c start -d "$app"
   done  
 
   # Start Web Server domains
@@ -49,7 +49,7 @@ if [ "$CONTINUE" = 'Y' ]; then
   for web in "${arrweb[@]}" 
   do
     echo -e ">> Starting Web Server domain:" "$web"
-    psadmin -w start "$web"
+    psadmin -w start -d "$web"
   done  
 
   # Start Process Scheduler domains
@@ -57,6 +57,6 @@ if [ "$CONTINUE" = 'Y' ]; then
   for prcs in "${arrprcs[@]}" 
   do
     echo -e ">> Starting Process Scheduler domain:" "$prcs"
-    psadmin -p start "$prcs"
+    psadmin -p start -d "$prcs"
   done  
 fi
