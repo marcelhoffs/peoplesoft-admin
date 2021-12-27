@@ -48,7 +48,7 @@ if [ "$CONTINUE" = 'Y' ]; then
   get_domains
   
   # Stop Web Server domains
-  for web in "${!ARR_WEB[@]}" 
+  for i in "${!ARR_WEB[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
