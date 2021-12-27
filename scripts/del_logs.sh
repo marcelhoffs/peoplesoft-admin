@@ -115,22 +115,12 @@ get_domains
 #while read -r app; do
 #  PATH_APP_LOG="${PS_CFG_HOME}/appserv/${app}"
 #done < <(cat domains_app | sed -n 1'p' | tr ',' '\n')
-for app in "${arrapp[@]}" 
+
+for i in "${arrapp[@]}" 
 do
-  echo ''
-  echo -e "-------------------------------------------------------"
-  echo -e ">> Stopping Application Server domain:" "$app"
-  echo -e "-------------------------------------------------------"
-  echo ''    
-
-  #psadmin -c $STOP_APP -d "$app"
-done  
-
-#for i in "${arrapp[@]}" 
-#do
-#  echo "$i"
-  #PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/${arrapp[$i]}"
-#done
+  echo "${arrapp[$i]}"
+  PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/$i"
+done
 
 # Determine Process Scheduler log paths
 #while read -r prcs; do
