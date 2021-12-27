@@ -65,38 +65,38 @@ if [ "$CONTINUE" = 'Y' ]; then
   get_domains
   
   # Stop Web Server domains
-  for web in "${arrweb[@]}" 
+  for web in "${!arrweb[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Stopping Web Server domain:" "$web"
+    echo -e ">> Stopping Web Server domain:" "${arrweb[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''
 
-    psadmin -w $STOP_WEB -d "$web"
+    psadmin -w $STOP_WEB -d "${arrweb[$i]}"
   done  
 
   # Stop Application Server domains
-  for app in "${arrapp[@]}" 
+  for i in "${!arrapp[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Stopping Application Server domain:" "$app"
+    echo -e ">> Stopping Application Server domain:" "${arrapp[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''    
 
-    psadmin -c $STOP_APP -d "$app"
+    psadmin -c $STOP_APP -d "${arrapp[$i]}"
   done  
 
   # Stop Process Scheduler domains
-  for prcs in "${arrprcs[@]}" 
+  for i in "${!arrprcs[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Stopping Process Scheduler domain:" "$prcs"
+    echo -e ">> Stopping Process Scheduler domain:" "${arrprcs[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''
     
-    psadmin -p $STOP_PRCS -d "$prcs"
+    psadmin -p $STOP_PRCS -d "${arrprcs[$i]}"
   done  
 fi

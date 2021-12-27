@@ -47,39 +47,39 @@ if [ "$CONTINUE" = 'Y' ]; then
   get_domains
   
   # Start Application Server domains
-  for app in "${arrapp[@]}" 
+  for i in "${!arrapp[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Starting Application Server domain:" "$app"
+    echo -e ">> Starting Application Server domain:" "${arrapp[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''
 
-    psadmin -c start -d "$app"
+    psadmin -c start -d "${arrapp[$i]}"
   done  
 
   # Start Web Server domains
-  for web in "${arrweb[@]}" 
+  for i in "${!arrweb[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Starting Web Server domain:" "$web"
+    echo -e ">> Starting Web Server domain:" "${arrweb[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''
 
-    psadmin -w start -d "$web"
+    psadmin -w start -d "${arrweb[$i]}"
   done  
 
   # Start Process Scheduler domains
   echo ''
-  for prcs in "${arrprcs[@]}" 
+  for i in "${!arrprcs[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Starting Process Scheduler domain:" "$prcs"
+    echo -e ">> Starting Process Scheduler domain:" "${arrprcs[$i]}"
     echo -e "-------------------------------------------------------".
     echo ''
 
-    psadmin -p start -d "$prcs"
+    psadmin -p start -d "${arrprcs[$i]}"
   done  
 fi
