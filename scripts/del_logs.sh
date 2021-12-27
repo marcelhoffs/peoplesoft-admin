@@ -20,23 +20,24 @@ get_domains()
   read -a arrweb <<< "$webdomains"
 }
 
+# ----------------------------------------------------------------
+
 delete_web_server_logs()
 {
   test=$1
   arg1=$2
 
   cmd1_arg="${arg1:?}/servers/PIA/logs/*"
-  #cmd2_arg="${arg1:?}/applications/peoplesoft/PSIGW.war/WEB-INF/"*
-
+ 
   if [ "$test" = 'Y' ]; then
     echo "$cmd1_arg"
-    #echo "$cmd2_arg"
     echo ''
   else
     rm -r $cmd1_arg
-    #rm -r $cmd2_arg
   fi
 }
+
+# ----------------------------------------------------------------
 
 delete_app_server_logs()
 {
@@ -56,6 +57,8 @@ delete_app_server_logs()
     rm -r $cmd2_arg
   fi
 }
+
+# ----------------------------------------------------------------
 
 delete_process_scheduler_logs()
 {
@@ -82,12 +85,10 @@ delete_process_scheduler_logs()
 clear
 
 echo -e "╔════════════════════════════════════════════════════════════╗"
-echo -e "║                                                            ║"
 echo -e "║ Delete log files                                           ║"
 echo -e "║ ----------------                                           ║"
 echo -e "║ This script will delete all web server, application server ║"
 echo -e "║ and process scheduler log files.                           ║" 
-echo -e "║                                                            ║"
 echo -e "╚════════════════════════════════════════════════════════════╝"
 echo ''
 
@@ -117,6 +118,7 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   # Test mode, just to show the paths that will be deleted
   
   # Web Server
+  echo ''
   echo -e "Web server logs"
   echo -e "---------------"
   for i in "${!PATH_WEB_LOG[@]}"
@@ -143,10 +145,24 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done
-#
-## Delete logs
-#if [ "$CONTINUE" = 'Y' ]; then
-#  #delete_web_server_logs 'N' "$PATH_WEB_LOG"
-#  #delete_app_server_logs 'N' "$PATH_APP_LOG"
-#  #delete_process_scheduler_logs 'N' "$PATH_PRCS_LOG"
-#fi
+
+# Delete logs
+if [ "$CONTINUE" = 'Y' ]; then
+  # Delete web server logs
+  for i in "${!PATH_WEB_LOG[@]}"
+  do
+    delete_web_server_logs 'N' "${PATH_WEB_LOG[$i]}"
+  done
+
+  # Delete application server logs
+  for i in "${!PATH_APP_LOG[@]}"
+  do
+    delete_app_server_logs 'N' "${PATH_APP_LOG[$i]}"
+  done
+
+  # Delete proces scheduler logs
+  for i in "${!PATH_PRCS_LOG[@]}"
+  do
+    delete_process_scheduler_logs 'N' "${PATH_PRCS_LOG[$i]}"
+  done
+fi
