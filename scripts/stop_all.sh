@@ -58,7 +58,7 @@ if [ "$CONTINUE" = 'Y' ]; then
   echo ''
   for web in "${arrweb[@]}" 
   do
-    echo -e ">> Stopping Web Server domain: " "$web"
+    echo -e ">> Stopping Web Server domain:" "$web"
     psadmin -w $STOP_WEB -d "$web"
   done  
 
@@ -66,7 +66,7 @@ if [ "$CONTINUE" = 'Y' ]; then
   echo ''
   for app in "${arrapp[@]}" 
   do
-    echo -e ">> Stopping Application Server domain: " "$app"
+    echo -e ">> Stopping Application Server domain:" "$app"
     psadmin -c $STOP_APP -d "$app"
   done  
 

@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Absolute path to this script
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
+# Constants
+IFS=','
 
 # ================================================================
 # MAIN
@@ -27,26 +26,37 @@ done
 echo ''
 
 if [ "$CONTINUE" = 'Y' ]; then
-  # Fetch all domains
-  sh $SCRIPTPATH/domains.sh > /dev/null 2>&1
+  # Get PeopleSoft domains
+  appdomains=$(psadmin -c list)
+  prcsdomains=$(psadmin -p list)
+  webdomains=$(psadmin -w list)
 
+  # Put domains in array
+  read -a arrapp <<< "$appdomains"
+  read -a arrprcs <<< "$prcsdomains"
+  read -a arrweb <<< "$webdomains"
+  
   # Start Application Server domains
-  echo -e ">> Starting all Application Server domains"
-  < $SCRIPTPATH/domains_app sed -n 1'p' | tr ',' '\n' | while read -r app; do
-    psadmin -c start -d "$app"
-  done
+  echo ''
+  for app in "${arrapp[@]}" 
+  do
+    echo -e ">> Starting Application Server domain:" "$app"
+    psadmin -c start "$app"
+  done  
 
   # Start Web Server domains
   echo ''
-  echo -e ">> Starting all Web Server domains"
-  < $SCRIPTPATH/domains_web sed -n 1'p' | tr ',' '\n' | while read -r web; do
-    psadmin -w start -d "$web"
-  done
+  for web in "${arrweb[@]}" 
+  do
+    echo -e ">> Starting Web Server domain:" "$web"
+    psadmin -w start "$web"
+  done  
 
   # Start Process Scheduler domains
   echo ''
-  echo -e ">> Starting all Process Scheduler domains"
-  < $SCRIPTPATH/domains_prcs sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
-    psadmin -p start -d "$prcs"
-  done
+  for prcs in "${arrprcs[@]}" 
+  do
+    echo -e ">> Starting Process Scheduler domain:" "$prcs"
+    psadmin -p start "$prcs"
+  done  
 fi
