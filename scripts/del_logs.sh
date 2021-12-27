@@ -115,6 +115,7 @@ get_domains
 
 for i in "${arrapp[@]}" 
 do
+  echo "${app[$i]}"
   PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/${app[$i]}"
 done
 
