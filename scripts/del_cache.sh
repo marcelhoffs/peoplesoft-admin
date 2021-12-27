@@ -22,7 +22,6 @@ delete_web_server_cache() {
 
     if [ "$TEST" = 'Y' ]; then
       echo "$CMD1_ARG"
-      echo ''
     else
       rm -r $CMD1_ARG
     fi
@@ -40,7 +39,6 @@ delete_app_server_cache() {
   if [ "$TEST" = 'Y' ]; then
     # Show path
     echo "$CMD1_ARG"
-    echo ''
   else
     # Delete
     rm -r $CMD1_ARG
@@ -58,7 +56,6 @@ delete_process_scheduler_cache() {
   if [ "$TEST" = 'Y' ]; then
     # Show path
     echo "$CMD1_ARG"
-    echo ''
   else
     # Delete
     rm -r $CMD1_ARG
@@ -83,6 +80,7 @@ delete_cache() {
 
   # Application Server
   if [ "$TEST" = 'Y' ]; then
+    echo ''
     echo -e "Application server cache"
     echo -e "------------------------"
   fi
@@ -93,6 +91,7 @@ delete_cache() {
 
   # Process Scheduler
   if [ "$TEST" = 'Y' ]; then
+    echo ''
     echo -e "Process Scheduler cache"
     echo -e "-----------------------"
   fi
