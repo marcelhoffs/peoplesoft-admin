@@ -113,9 +113,9 @@ get_domains
 #  PATH_APP_LOG="${PS_CFG_HOME}/appserv/${app}"
 #done < <(cat domains_app | sed -n 1'p' | tr ',' '\n')
 
-for app in "${arrapp[@]}" 
+for i in "${arrapp[@]}" 
 do
-  PATH_APP_LOG[$app]="${PS_CFG_HOME}/appserv/$app"
+  PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/${app[$i]}"
 done
 
 # Determine Process Scheduler log paths
@@ -128,10 +128,10 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   # Test mode, just to show the paths that will be deleted
   #delete_web_server_logs 'Y' "$PATH_WEB_LOG"
   
-  #for apppath in "${PATH_APP_LOG[@]}"
-  #  delete_app_server_logs 'Y' "$PATH_APP_LOG"
-  #do
-  #done
+  for i in "${PATH_APP_LOG[@]}"
+    delete_app_server_logs 'Y' "${PATH_APP_LOG[$i]}"
+  do
+  done
 
   #delete_process_scheduler_logs 'Y' "$PATH_PRCS_LOG"
   
