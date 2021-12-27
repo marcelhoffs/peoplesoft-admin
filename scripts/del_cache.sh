@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
 # ================================================================
 # FUNCTIONS
 # ================================================================
@@ -66,9 +70,9 @@ delete_cache()
     echo -e "----------------"
   fi
 
-  for i in "${!arrwebbase[@]}"
+  for i in "${!ARR_WEB_BASE[@]}"
   do
-    delete_web_server_cache "$test" "${arrwebbase[$i]}"
+    delete_web_server_cache "$test" "${ARR_WEB_BASE[$i]}"
   done
 
   # Application Server
@@ -77,9 +81,9 @@ delete_cache()
     echo -e "------------------------"
   fi
 
-  for i in "${!arrappbase[@]}"
+  for i in "${!ARR_APP_BASE[@]}"
   do
-    delete_app_server_cache "$test" "${arrappbase[$i]}"
+    delete_app_server_cache "$test" "${ARR_APP_BASE[$i]}"
   done
 
   # Process Scheduler
@@ -88,9 +92,9 @@ delete_cache()
     echo -e "-----------------------"
   fi
 
-  for i in "${!arrprcsbase[@]}"
+  for i in "${!ARR_PRCS_BASE[@]}"
   do
-    delete_process_scheduler_cache "$test" "${arrprcsbase[$i]}"
+    delete_process_scheduler_cache "$test" "${ARR_PRCS_BASE[$i]}"
   done
 }
 

@@ -10,14 +10,14 @@ IFS=','
 get_domains()
 {
   # Get PeopleSoft domains
-  appdomains=$(psadmin -c list)
-  prcsdomains=$(psadmin -p list)
-  webdomains=$(psadmin -w list)
+  APPDOMAINS=$(psadmin -c list)
+  PRCSDOMAINS=$(psadmin -p list)
+  WEBDOMAINS=$(psadmin -w list)
 
   # Put domains in array
-  read -a arrapp <<< "$appdomains"
-  read -a arrprcs <<< "$prcsdomains"
-  read -a arrweb <<< "$webdomains"
+  read -a ARR_APP <<< "$APPDOMAINS"
+  read -a ARR_PRCS <<< "$PRCSDOMAINS"
+  read -a ARR_WEB <<< "$WEBDOMAINS"
 }
 
 # ----------------------------------------------------------------
@@ -25,21 +25,21 @@ get_domains()
 get_domain_base_paths()
 {
   # Determine Web Server log paths
-  for i in "${!arrweb[@]}" 
+  for i in "${!ARR_WEB[@]}" 
   do
-    arrwebbase[$i]="${PS_CFG_HOME}/webserv/${arrweb[$i]}"  
+    ARR_WEB_BASE[$i]="${PS_CFG_HOME}/webserv/${ARR_WEB[$i]}"  
   done
 
   # Determine Application Server log paths
-  for i in "${!arrapp[@]}" 
+  for i in "${!ARR_APP[@]}" 
   do
-    arrappbase[$i]="${PS_CFG_HOME}/appserv/${arrapp[$i]}"
+    ARR_APP_BASE[$i]="${PS_CFG_HOME}/appserv/${ARR_APP[$i]}"
   done
 
   # Determine Process Scheduler log paths
-  for i in "${!arrprcs[@]}" 
+  for i in "${!ARR_PRCS[@]}" 
   do
-    arrprcsbase[$i]="${PS_CFG_HOME}/appserv/prcs/${arrprcs[$i]}"
+    ARR_PRCS_BASE[$i]="${PS_CFG_HOME}/appserv/prcs/${ARR_PRCS[$i]}"
   done
 }
 

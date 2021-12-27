@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
 # ================================================================
 # MAIN
 # ================================================================
@@ -44,38 +48,38 @@ if [ "$CONTINUE" = 'Y' ]; then
   get_domains
   
   # Stop Web Server domains
-  for web in "${!arrweb[@]}" 
+  for web in "${!ARR_WEB[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Stopping Web Server domain:" "${arrweb[$i]}"
+    echo -e ">> Stopping Web Server domain:" "${ARR_WEB[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''
 
-    psadmin -w $STOP_WEB -d "${arrweb[$i]}"
+    psadmin -w $STOP_WEB -d "${ARR_WEB[$i]}"
   done  
 
   # Stop Application Server domains
-  for i in "${!arrapp[@]}" 
+  for i in "${!ARR_APP[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Stopping Application Server domain:" "${arrapp[$i]}"
+    echo -e ">> Stopping Application Server domain:" "${ARR_APP[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''    
 
-    psadmin -c $STOP_APP -d "${arrapp[$i]}"
+    psadmin -c $STOP_APP -d "${ARR_APP[$i]}"
   done  
 
   # Stop Process Scheduler domains
-  for i in "${!arrprcs[@]}" 
+  for i in "${!ARR_PRCS[@]}" 
   do
     echo ''
     echo -e "-------------------------------------------------------"
-    echo -e ">> Stopping Process Scheduler domain:" "${arrprcs[$i]}"
+    echo -e ">> Stopping Process Scheduler domain:" "${ARR_PRCS[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''
     
-    psadmin -p $STOP_PRCS -d "${arrprcs[$i]}"
+    psadmin -p $STOP_PRCS -d "${ARR_PRCS[$i]}"
   done  
 fi
