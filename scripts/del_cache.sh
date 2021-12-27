@@ -13,14 +13,24 @@ delete_web_server_cache()
   test=$1
   arg1=$2
 
-  cmd1_arg="${arg1:?}/applications/peoplesoft/PORTAL.war/ps/cache/*"
+  # Get sites for this web domain
+  PIA_INSTALL_LOG="${arg1:?}/piaconfig/properties/piaInstallLog.xml"
+  CMD_PIA_SITES=$(sed -ne 's/.*Site name="\([^"]*\).*/\1/p' "$PIA_INSTALL_LOG") 
+  read -a PIA_SITES <<< "$CMD_PIA_SITES"
 
-  if [ "$test" = 'Y' ]; then
-    echo "$cmd1_arg"
-    echo ''
-  else
-    rm -r $cmd1_arg
-  fi
+  for i in "${!PIA_SITES[@]}"
+  do
+    echo "${PIA_SITES[$i]}"
+  done
+
+  #cmd1_arg="${arg1:?}/applications/peoplesoft/PORTAL.war/ps/cache/*"
+#
+  #if [ "$test" = 'Y' ]; then
+  #  echo "$cmd1_arg"
+  #  echo ''
+  #else
+  #  rm -r $cmd1_arg
+  #fi
 }
 
 # ----------------------------------------------------------------
