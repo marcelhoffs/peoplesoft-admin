@@ -10,23 +10,23 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 
 delete_web_server_cache()
 {
-  test=$1
-  arg1=$2
+  TEST=$1
+  ARG1=$2
 
-  # Get sites for this web domain
-  PIA_INSTALL_LOG="${arg1:?}/piaconfig/properties/piaInstallLog.xml"
+  # Get sites for this web domain from piaInstallLog.xml
+  PIA_INSTALL_LOG="${ARG1:?}/piaconfig/properties/piaInstallLog.xml"
   CMD_PIA_SITES=$(sed -ne 's/.*Site name="\([^"]*\).*/\1/p' "$PIA_INSTALL_LOG") 
   read -a PIA_SITES <<< "$CMD_PIA_SITES"
 
   for i in "${!PIA_SITES[@]}"
   do
-    cmd1_arg="${arg1:?}/applications/peoplesoft/PORTAL.war/${PIA_SITES[$i]}/cache/*"
+    CMD1_ARG="${ARG1:?}/applications/peoplesoft/PORTAL.war/${PIA_SITES[$i]}/cache/*"
 
-    if [ "$test" = 'Y' ]; then
-      echo "$cmd1_arg"
+    if [ "$TEST" = 'Y' ]; then
+      echo "$CMD1_ARG"
       echo ''
     else
-      rm -r $cmd1_arg
+      rm -r $CMD1_ARG
     fi
   done 
 }
@@ -35,16 +35,16 @@ delete_web_server_cache()
 
 delete_app_server_cache()
 {
-  test=$1
-  arg1=$2
+  TEST=$1
+  ARG1=$2
 
-  cmd1_arg="${arg1:?}/CACHE/*"
+  CMD1_ARG="${ARG1:?}/CACHE/*"
 
-  if [ "$test" = 'Y' ]; then
-    echo "$cmd1_arg"
+  if [ "$TEST" = 'Y' ]; then
+    echo "$CMD1_ARG"
     echo ''
   else
-    rm -r $cmd1_arg
+    rm -r $CMD1_ARG
   fi
 }
 
@@ -52,16 +52,16 @@ delete_app_server_cache()
 
 delete_process_scheduler_cache()
 {
-  test=$1
-  arg1=$2
+  TEST=$1
+  ARG1=$2
 
-  cmd1_arg="${arg1:?}/CACHE/*"
+  CMD1_ARG="${ARG1:?}/CACHE/*"
 
-  if [ "$test" = 'Y' ]; then
-    echo "$cmd1_arg"
+  if [ "$TEST" = 'Y' ]; then
+    echo "$CMD1_ARG"
     echo ''
   else
-    rm -r $cmd1_arg
+    rm -r $CMD1_ARG
   fi
 }
 
@@ -69,10 +69,10 @@ delete_process_scheduler_cache()
 
 delete_cache()
 {
-  test=$1
+  TEST=$1
 
   # Web Server
-  if [ "$test" = 'Y' ]; then
+  if [ "$TEST" = 'Y' ]; then
     echo ''
     echo -e "Web server cache"
     echo -e "----------------"
@@ -80,29 +80,29 @@ delete_cache()
 
   for i in "${!ARR_WEB_BASE[@]}"
   do
-    delete_web_server_cache "$test" "${ARR_WEB_BASE[$i]}"
+    delete_web_server_cache "$TEST" "${ARR_WEB_BASE[$i]}"
   done
 
   # Application Server
-  if [ "$test" = 'Y' ]; then
+  if [ "$TEST" = 'Y' ]; then
     echo -e "Application server cache"
     echo -e "------------------------"
   fi
 
   for i in "${!ARR_APP_BASE[@]}"
   do
-    delete_app_server_cache "$test" "${ARR_APP_BASE[$i]}"
+    delete_app_server_cache "$TEST" "${ARR_APP_BASE[$i]}"
   done
 
   # Process Scheduler
-  if [ "$test" = 'Y' ]; then
+  if [ "$TEST" = 'Y' ]; then
     echo -e "Process Scheduler cache"
     echo -e "-----------------------"
   fi
 
   for i in "${!ARR_PRCS_BASE[@]}"
   do
-    delete_process_scheduler_cache "$test" "${ARR_PRCS_BASE[$i]}"
+    delete_process_scheduler_cache "$TEST" "${ARR_PRCS_BASE[$i]}"
   done
 }
 
@@ -126,7 +126,7 @@ get_domain_base_paths
 
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-  # Test mode, just to show the paths that will be deleted
+  # TEST mode, just to show the paths that will be deleted
   delete_cache 'Y'
     
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
@@ -135,6 +135,6 @@ done
 
 # Delete cache
 if [ "$CONTINUE" = 'Y' ]; then
-  # Delete cache (no test mode)
+  # Delete cache (no TEST mode)
   delete_cache 'N'
 fi
