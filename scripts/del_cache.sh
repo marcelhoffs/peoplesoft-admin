@@ -53,6 +53,47 @@ delete_process_scheduler_cache()
   fi
 }
 
+# ----------------------------------------------------------------
+
+delete_cache()
+{
+  test=$1
+
+  # Web Server
+  if [ "$test" = 'Y' ]; then
+    echo ''
+    echo -e "Web server cache"
+    echo -e "----------------"
+  fi
+
+  for i in "${!arrwebbase[@]}"
+  do
+    delete_web_server_cache "$test" "${arrwebbase[$i]}"
+  done
+
+  # Application Server
+  if [ "$test" = 'Y' ]; then
+    echo -e "Application server cache"
+    echo -e "------------------------"
+  fi
+
+  for i in "${!arrappbase[@]}"
+  do
+    delete_app_server_cache "$test" "${arrappbase[$i]}"
+  done
+
+  # Process Scheduler
+  if [ "$test" = 'Y' ]; then
+    echo -e "Process Scheduler cache"
+    echo -e "-----------------------"
+  fi
+
+  for i in "${!arrprcsbase[@]}"
+  do
+    delete_process_scheduler_cache "$test" "${arrprcsbase[$i]}"
+  done
+}
+
 # ================================================================
 # MAIN
 # ================================================================
@@ -73,54 +114,15 @@ get_domain_base_paths
 
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
- # Test mode, just to show the paths that will be deleted
-  
-  # Web Server
-  echo ''
-  echo -e "Web server cache"
-  echo -e "----------------"
-  for i in "${!arrwebbase[@]}"
-  do
-    delete_web_server_cache 'Y' "${arrwebbase[$i]}"
-  done
-
-  # Application Server
-  echo -e "Application server cache"
-  echo -e "------------------------"
-  for i in "${!arrappbase[@]}"
-  do
-    delete_app_server_cache 'Y' "${arrappbase[$i]}"
-  done
-
-  # Process Scheduler
-  echo -e "Process Scheduler cache"
-  echo -e "-----------------------"
-  for i in "${!arrprcsbase[@]}"
-  do
-    delete_process_scheduler_cache 'Y' "${arrprcsbase[$i]}"
-  done
-  
+  # Test mode, just to show the paths that will be deleted
+  delete_cache 'Y'
+    
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done
 
 # Delete cache
 if [ "$CONTINUE" = 'Y' ]; then
-  # Delete web server logs
-  #for i in "${!arrwebbase[@]}"
-  #do
-  #  delete_web_server_cache 'N' "${arrwebbase[$i]}"
-  #done
-
-  # Delete application server logs
-  for i in "${!arrappbase[@]}"
-  do
-    delete_app_server_cache 'N' "${arrappbase[$i]}"
-  done
-
-  # Delete proces scheduler logs
-  for i in "${!arrprcsbase[@]}"
-  do
-    delete_process_scheduler_cache 'N' "${arrprcsbase[$i]}"
-  done
+  # Delete cache (no test mode)
+  delete_cache 'N'
 fi
