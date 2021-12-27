@@ -29,8 +29,6 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   CONTINUE=${CONTINUE^^}
 done
 
-echo ''
-
 # Determine shutdown command
 if [ "$FORCE" = 'Y' ]; then
   STOP_WEB='shutdown!'
