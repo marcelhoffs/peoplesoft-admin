@@ -22,8 +22,6 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   CONTINUE=${CONTINUE^^}
 done
 
-echo ''
-
 if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
   source $SCRIPTPATH/functions.sh
