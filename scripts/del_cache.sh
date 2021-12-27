@@ -116,7 +116,7 @@ echo -e "╚══════════════════════�
 echo ''
 
 # Fetch all domains and base paths
-source $SCRIPTPATH/functions.sh
+source $SCRIPTPATH/functions.sh > /dev/null 2>&1
 get_domains
 get_domain_base_paths
 

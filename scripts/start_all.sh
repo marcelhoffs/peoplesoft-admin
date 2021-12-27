@@ -26,7 +26,7 @@ echo ''
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
-  source $SCRIPTPATH/functions.sh
+  source $SCRIPTPATH/functions.sh > /dev/null 2>&1
   get_domains
 
   # Start Application Server domains
@@ -62,4 +62,10 @@ if [ "$CONTINUE" = 'Y' ]; then
 
     psadmin -p start -d "${ARR_PRCS[$i]}"
   done
+
+  echo ''
+  echo -e "-------------------------------------------------------"
+  echo -e ">> DONE"
+  echo -e "-------------------------------------------------------"
+  echo ''
 fi
