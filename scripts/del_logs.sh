@@ -107,52 +107,42 @@ echo ''
 get_domains
 
 # Determine Web Server log paths
-#while read -r web; do
-#  PATH_WEB_LOG="${PS_CFG_HOME}/webserv/${web}"
-#done < <(cat domains_web | sed -n 1'p' | tr ',' '\n')
-
-# Determine Application Server log paths
-#while read -r app; do
-#  PATH_APP_LOG="${PS_CFG_HOME}/appserv/${app}"
-#done < <(cat domains_app | sed -n 1'p' | tr ',' '\n')
 for i in "${!arrweb[@]}" 
 do
   PATH_WEB_LOG[$i]="${PS_CFG_HOME}/webserv/${arrweb[$i]}"
   echo "${PATH_WEB_LOG[$i]}"
 done
 
+# Determine Application Server log paths
 for i in "${!arrapp[@]}" 
 do
   PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/${arrapp[$i]}"
   echo "${PATH_APP_LOG[$i]}"
 done
 
+# Determine Process Scheduler log paths
 for i in "${!arrprcs[@]}" 
 do
   PATH_PRCS_LOG[$i]="${PS_CFG_HOME}/appserv/prcs/${arrprcs[$i]}"
   echo "${PATH_PRCS_LOG[$i]}"
 done
 
-# Determine Process Scheduler log paths
-#while read -r prcs; do
-#  PATH_PRCS_LOG="${PS_CFG_HOME}/appserv/prcs/${prcs}"
-#done < <(cat domains_prcs | sed -n 1'p' | tr ',' '\n')
 
 # Ask to continue
-#while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-#  # Test mode, just to show the paths that will be deleted
-#  #delete_web_server_logs 'Y' "$PATH_WEB_LOG"
-#  
-#  for i in "${PATH_APP_LOG[@]}"
-#  do
-#    echo "${PATH_APP_LOG[$i]}"
-#  done
-#
-#  #delete_process_scheduler_logs 'Y' "$PATH_PRCS_LOG"
-#  
-#  read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
-#  CONTINUE=${CONTINUE^^}
-#done
+while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
+  # Test mode, just to show the paths that will be deleted
+  #delete_web_server_logs 'Y' "$PATH_WEB_LOG"
+  
+  for i in "${!PATH_APP_LOG[@]}"
+  do
+    delete_web_server_logs 'Y' "${PATH_WEB_LOG[$i]}"
+  done
+
+  #delete_process_scheduler_logs 'Y' "$PATH_PRCS_LOG"
+  
+  read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
+  CONTINUE=${CONTINUE^^}
+done
 #
 ## Delete logs
 #if [ "$CONTINUE" = 'Y' ]; then
