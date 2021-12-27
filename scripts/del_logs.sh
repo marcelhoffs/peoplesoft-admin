@@ -62,6 +62,47 @@ delete_process_scheduler_logs()
   fi
 }
 
+# ----------------------------------------------------------------
+
+delete_logs()
+{
+  test=$1
+
+  # Web Server
+  if [ "$test" = 'Y' ]; then
+    echo ''
+    echo -e "Web server logs"
+    echo -e "---------------"
+  fi
+
+  for i in "${!arrwebbase[@]}"
+  do
+    delete_web_server_logs "$test" "${arrwebbase[$i]}"
+  done
+
+  # Application Server
+  if [ "$test" = 'Y' ]; then
+    echo -e "Application server logs"
+    echo -e "-----------------------"
+  fi
+
+  for i in "${!arrappbase[@]}"
+  do
+    delete_app_server_logs "$test" "${arrappbase[$i]}"
+  done
+
+  # Process Scheduler
+  if [ "$test" = 'Y' ]; then
+    echo -e "Process Scheduler logs"
+    echo -e "----------------------"
+  fi
+
+  for i in "${!arrprcsbase[@]}"
+  do
+    delete_process_scheduler_logs "$test" "${arrprcsbase[$i]}"
+  done
+}
+
 # ================================================================
 # MAIN
 # ================================================================
@@ -83,31 +124,7 @@ get_domain_base_paths
 # Ask to continue
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   # Test mode, just to show the paths that will be deleted
-  
-  # Web Server
-  echo ''
-  echo -e "Web server logs"
-  echo -e "---------------"
-  for i in "${!arrwebbase[@]}"
-  do
-    delete_web_server_logs 'Y' "${arrwebbase[$i]}"
-  done
-
-  # Application Server
-  echo -e "Application server logs"
-  echo -e "-----------------------"
-  for i in "${!arrappbase[@]}"
-  do
-    delete_app_server_logs 'Y' "${arrappbase[$i]}"
-  done
-
-  # Process Scheduler
-  echo -e "Process Scheduler logs"
-  echo -e "----------------------"
-  for i in "${!arrprcsbase[@]}"
-  do
-    delete_process_scheduler_logs 'Y' "${arrprcsbase[$i]}"
-  done
+  delete_logs 'Y'
   
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
@@ -115,21 +132,6 @@ done
 
 # Delete logs
 if [ "$CONTINUE" = 'Y' ]; then
-  # Delete web server logs
-  for i in "${!arrwebbase[@]}"
-  do
-    delete_web_server_logs 'N' "${arrwebbase[$i]}"
-  done
-
-  # Delete application server logs
-  for i in "${!arrappbase[@]}"
-  do
-    delete_app_server_logs 'N' "${arrappbase[$i]}"
-  done
-
-  # Delete proces scheduler logs
-  for i in "${!arrprcsbase[@]}"
-  do
-    delete_process_scheduler_logs 'N' "${arrprcsbase[$i]}"
-  done
+  # Delete logs (no test mode)
+  delete_logs 'N'
 fi
