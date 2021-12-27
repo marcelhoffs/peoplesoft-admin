@@ -50,21 +50,21 @@ if [ "$CONTINUE" = 'Y' ]; then
 
   # Stop Web Server domains
   echo -e ">> Stopping all Web Server domains"
-  < $SCRIPTPATH/domains_web sed -n 1'p' | tr ',' '\n' | while read -r web; do
+  < psadmin -w list | while read -r web; do
     psadmin -w $STOP_WEB -d "$web"
   done
 
   # Stop all Application Server domains
   echo ''
   echo -e ">> Stopping all Application Server domains"
-  < $SCRIPTPATH/domains_app sed -n 1'p' | tr ',' '\n' | while read -r app; do
+  < psadmin -c list | while read -r app; do
     psadmin -c $STOP_APP -d "$app"
   done
 
   # Stop all Process Scheduler domains
   echo ''
   echo -e ">> Stopping all Process Scheduler domains"
-  < $SCRIPTPATH/domains_prcs sed -n 1'p' | tr ',' '\n' | while read -r prcs; do
+  < psadmin -p list | while read -r prcs; do
     psadmin -p $STOP_PRCS -d "$prcs"
   done
 fi
