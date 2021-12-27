@@ -116,10 +116,10 @@ get_domains
 #  PATH_APP_LOG="${PS_CFG_HOME}/appserv/${app}"
 #done < <(cat domains_app | sed -n 1'p' | tr ',' '\n')
 
-for i in "${arrapp[@]}" 
+for i in "${!arrapp[@]}" 
 do
-  echo "${arrapp[$i]}"
-  PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/$i"
+  echo "$i" "${arrapp[$i]}"
+  #PATH_APP_LOG[$i]="${PS_CFG_HOME}/appserv/$i"
 done
 
 # Determine Process Scheduler log paths
