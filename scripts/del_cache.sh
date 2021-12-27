@@ -140,7 +140,21 @@ done
 
 # Delete cache
 if [ "$CONTINUE" = 'Y' ]; then
-  #delete_web_server_cache 'N' "$PATH_WEB_CACHE"
-  #delete_app_server_cache 'N' "$PATH_APP_CACHE"
-  #delete_process_scheduler_cache 'N' "$PATH_PRCS_CACHE"
+  # Delete web server logs
+  #for i in "${!PATH_WEB_LOG[@]}"
+  #do
+  #  delete_web_server_cache 'N' "${PATH_WEB_LOG[$i]}"
+  #done
+
+  # Delete application server logs
+  for i in "${!PATH_APP_LOG[@]}"
+  do
+    delete_app_server_cache 'N' "${PATH_APP_LOG[$i]}"
+  done
+
+  # Delete proces scheduler logs
+  for i in "${!PATH_PRCS_LOG[@]}"
+  do
+    delete_process_scheduler_cache 'N' "${PATH_PRCS_LOG[$i]}"
+  done
 fi
