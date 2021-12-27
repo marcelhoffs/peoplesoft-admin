@@ -115,7 +115,7 @@ get_domains
 
 for app in "${arrapp[@]}" 
 do
-  PATH_APP_LOG[@]="${PS_CFG_HOME}/appserv/${app}"
+  PATH_APP_LOG[$app]="${PS_CFG_HOME}/appserv/${app}"
 done
 
 # Determine Process Scheduler log paths
