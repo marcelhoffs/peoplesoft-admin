@@ -20,17 +20,15 @@ delete_web_server_cache()
 
   for i in "${!PIA_SITES[@]}"
   do
-    echo "${PIA_SITES[$i]}"
-  done
+    cmd1_arg="${arg1:?}/applications/peoplesoft/PORTAL.war/${PIA_SITES[$i]}/cache/*"
 
-  #cmd1_arg="${arg1:?}/applications/peoplesoft/PORTAL.war/ps/cache/*"
-#
-  #if [ "$test" = 'Y' ]; then
-  #  echo "$cmd1_arg"
-  #  echo ''
-  #else
-  #  rm -r $cmd1_arg
-  #fi
+    if [ "$test" = 'Y' ]; then
+      echo "$cmd1_arg"
+      echo ''
+    else
+      rm -r $cmd1_arg
+    fi
+  done 
 }
 
 # ----------------------------------------------------------------
