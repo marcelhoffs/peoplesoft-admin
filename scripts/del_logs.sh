@@ -128,10 +128,10 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   # Test mode, just to show the paths that will be deleted
   #delete_web_server_logs 'Y' "$PATH_WEB_LOG"
   
-  for apppath in "${PATH_APP_LOG[@]}"
-    delete_app_server_logs 'Y' "$PATH_APP_LOG"
-  do
-  done
+  #for apppath in "${PATH_APP_LOG[@]}"
+  #  delete_app_server_logs 'Y' "$PATH_APP_LOG"
+  #do
+  #done
 
   #delete_process_scheduler_logs 'Y' "$PATH_PRCS_LOG"
   
