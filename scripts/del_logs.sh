@@ -129,7 +129,7 @@ while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   #delete_web_server_logs 'Y' "$PATH_WEB_LOG"
   
   for i in "${PATH_APP_LOG[@]}"
-    delete_app_server_logs 'Y' "${PATH_APP_LOG[$i]}"
+    echo "${PATH_APP_LOG[$i]}"
   do
   done
 
