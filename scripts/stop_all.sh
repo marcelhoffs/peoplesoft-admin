@@ -46,25 +46,26 @@ fi
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Fetch all domains
-  sh $SCRIPTPATH/domains.sh > /dev/null 2>&1
+  #sh $SCRIPTPATH/domains.sh > /dev/null 2>&1
 
   # Stop Web Server domains
-  echo -e ">> Stopping all Web Server domains"
-  < psadmin -w list | while read -r web; do
-    psadmin -w $STOP_WEB -d "$web"
-  done
+  #echo -e ">> Stopping all Web Server domains"
+  #< psadmin -w list | while read -r web; do
+  #  psadmin -w $STOP_WEB -d "$web"
+  #done
 
   # Stop all Application Server domains
   echo ''
   echo -e ">> Stopping all Application Server domains"
   < psadmin -c list | while read -r app; do
-    psadmin -c $STOP_APP -d "$app"
+  #  psadmin -c $STOP_APP -d "$app"
+  echo 'psadmin -C' "$STOP_APP" '-d' "$app"
   done
 
   # Stop all Process Scheduler domains
-  echo ''
-  echo -e ">> Stopping all Process Scheduler domains"
-  < psadmin -p list | while read -r prcs; do
-    psadmin -p $STOP_PRCS -d "$prcs"
-  done
+  #echo ''
+  #echo -e ">> Stopping all Process Scheduler domains"
+  #< psadmin -p list | while read -r prcs; do
+  #  psadmin -p $STOP_PRCS -d "$prcs"
+  #done
 fi
