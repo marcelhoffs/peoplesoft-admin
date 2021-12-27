@@ -69,35 +69,32 @@ delete_logs() {
   TEST=$1
 
   # Web Server
-  if [ "$TEST" = 'Y' ]; then
-    echo ''
-    echo -e "Web server logs"
-    echo -e "---------------"
-  fi
-
   for i in "${!ARR_WEB_BASE[@]}"; do
+    if [ "$TEST" = 'Y' && $i = 0 ]; then
+      echo ''
+      echo -e "Web server logs"
+      echo -e "---------------"
+    fi
     delete_web_server_logs "$TEST" "${ARR_WEB_BASE[$i]}"
   done
 
   # Application Server
-  if [ "$TEST" = 'Y' ]; then
-   echo ''
-    echo -e "Application server logs"
-    echo -e "-----------------------"
-  fi
-
   for i in "${!ARR_APP_BASE[@]}"; do
+    if [ "$TEST" = 'Y' && $i = 0]; then
+      echo ''
+      echo -e "Application server logs"
+      echo -e "-----------------------"
+    fi
     delete_app_server_logs "$TEST" "${ARR_APP_BASE[$i]}"
   done
 
   # Process Scheduler
-  if [ "$TEST" = 'Y' ]; then
-    echo ''
-    echo -e "Process Scheduler logs"
-    echo -e "----------------------"
-  fi
-
   for i in "${!ARR_PRCS_BASE[@]}"; do
+    if [ "$TEST" = 'Y' && $i = 0 ]; then
+      echo ''
+      echo -e "Process Scheduler logs"
+      echo -e "----------------------"
+    fi
     delete_process_scheduler_logs "$TEST" "${ARR_PRCS_BASE[$i]}"
   done
 }
