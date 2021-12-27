@@ -8,65 +8,67 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 # FUNCTIONS
 # ================================================================
 
-delete_web_server_logs()
-{
+delete_web_server_logs() {
   TEST=$1
   ARG1=$2
 
   CMD1_ARG="${ARG1:?}/servers/PIA/logs/*"
- 
+
   if [ "$TEST" = 'Y' ]; then
+    # Show path
     echo "$CMD1_ARG"
     echo ''
   else
+    # Delete
     rm -r $CMD1_ARG
   fi
 }
 
 # ----------------------------------------------------------------
 
-delete_app_server_logs()
-{
+delete_app_server_logs() {
   TEST=$1
   ARG1=$2
 
   CMD1_ARG="${ARG1:?}/LOGS/*"
-  cmd2_arg="${ARG1:?}/ULOG.*"
+  CMD2_ARG="${ARG1:?}/ULOG.*"
 
   if [ "$TEST" = 'Y' ]; then
+    # Show path
     echo "$CMD1_ARG"
-    echo "$cmd2_arg"
+    echo "$CMD2_ARG"
     echo ''
   else
+    # Delete
     rm -r $CMD1_ARG
-    rm -r $cmd2_arg
+    rm -r $CMD2_ARG
   fi
 }
 
 # ----------------------------------------------------------------
 
-delete_process_scheduler_logs()
-{
+delete_process_scheduler_logs() {
   TEST=$1
   ARG1=$2
 
   CMD1_ARG="${ARG1:?}/LOGS/*"
-  cmd2_arg="${ARG1:?}/ULOG.*"
+  CMD2_ARG="${ARG1:?}/ULOG.*"
 
   if [ "$TEST" = 'Y' ]; then
+    # Show path
     echo "$CMD1_ARG"
-    echo "$cmd2_arg"
+    echo "$CMD2_ARG"
     echo ''
   else
+    # Delete
     rm -r $CMD1_ARG
-    rm -r $cmd2_arg
+    rm -r $CMD2_ARG
   fi
 }
 
 # ----------------------------------------------------------------
 
-delete_logs()
-{
+delete_logs() {
   TEST=$1
 
   # Web Server
@@ -76,8 +78,7 @@ delete_logs()
     echo -e "---------------"
   fi
 
-  for i in "${!ARR_WEB_BASE[@]}"
-  do
+  for i in "${!ARR_WEB_BASE[@]}"; do
     delete_web_server_logs "$TEST" "${ARR_WEB_BASE[$i]}"
   done
 
@@ -87,8 +88,7 @@ delete_logs()
     echo -e "-----------------------"
   fi
 
-  for i in "${!ARR_APP_BASE[@]}"
-  do
+  for i in "${!ARR_APP_BASE[@]}"; do
     delete_app_server_logs "$TEST" "${ARR_APP_BASE[$i]}"
   done
 
@@ -98,8 +98,7 @@ delete_logs()
     echo -e "----------------------"
   fi
 
-  for i in "${!ARR_PRCS_BASE[@]}"
-  do
+  for i in "${!ARR_PRCS_BASE[@]}"; do
     delete_process_scheduler_logs "$TEST" "${ARR_PRCS_BASE[$i]}"
   done
 }
@@ -113,7 +112,7 @@ echo -e "╔══════════════════════�
 echo -e "║ Delete log files                                           ║"
 echo -e "║ ----------------                                           ║"
 echo -e "║ This script will delete all web server, application server ║"
-echo -e "║ and process scheduler log files.                           ║" 
+echo -e "║ and process scheduler log files.                           ║"
 echo -e "╚════════════════════════════════════════════════════════════╝"
 echo ''
 
@@ -126,7 +125,7 @@ get_domain_base_paths
 while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
   # TEST mode, just to show the paths that will be deleted
   delete_logs 'Y'
-  
+
   read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
   CONTINUE=${CONTINUE^^}
 done

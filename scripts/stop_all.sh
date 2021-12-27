@@ -46,10 +46,9 @@ if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
   source $SCRIPTPATH/functions.sh
   get_domains
-  
+
   # Stop Web Server domains
-  for i in "${!ARR_WEB[@]}" 
-  do
+  for i in "${!ARR_WEB[@]}"; do
     echo ''
     echo -e "-------------------------------------------------------"
     echo -e ">> Stopping Web Server domain:" "${ARR_WEB[$i]}"
@@ -57,29 +56,27 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo ''
 
     psadmin -w $STOP_WEB -d "${ARR_WEB[$i]}"
-  done  
+  done
 
   # Stop Application Server domains
-  for i in "${!ARR_APP[@]}" 
-  do
+  for i in "${!ARR_APP[@]}"; do
     echo ''
     echo -e "-------------------------------------------------------"
     echo -e ">> Stopping Application Server domain:" "${ARR_APP[$i]}"
     echo -e "-------------------------------------------------------"
-    echo ''    
+    echo ''
 
     psadmin -c $STOP_APP -d "${ARR_APP[$i]}"
-  done  
+  done
 
   # Stop Process Scheduler domains
-  for i in "${!ARR_PRCS[@]}" 
-  do
+  for i in "${!ARR_PRCS[@]}"; do
     echo ''
     echo -e "-------------------------------------------------------"
     echo -e ">> Stopping Process Scheduler domain:" "${ARR_PRCS[$i]}"
     echo -e "-------------------------------------------------------"
     echo ''
-    
+
     psadmin -p $STOP_PRCS -d "${ARR_PRCS[$i]}"
-  done  
+  done
 fi

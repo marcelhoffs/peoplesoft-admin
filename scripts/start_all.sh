@@ -28,10 +28,9 @@ if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
   source $SCRIPTPATH/functions.sh
   get_domains
-  
+
   # Start Application Server domains
-  for i in "${!ARR_APP[@]}" 
-  do
+  for i in "${!ARR_APP[@]}"; do
     echo ''
     echo -e "-------------------------------------------------------"
     echo -e ">> Starting Application Server domain:" "${ARR_APP[$i]}"
@@ -39,11 +38,10 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo ''
 
     psadmin -c start -d "${ARR_APP[$i]}"
-  done  
+  done
 
   # Start Web Server domains
-  for i in "${!ARR_WEB[@]}" 
-  do
+  for i in "${!ARR_WEB[@]}"; do
     echo ''
     echo -e "-------------------------------------------------------"
     echo -e ">> Starting Web Server domain:" "${ARR_WEB[$i]}"
@@ -51,12 +49,11 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo ''
 
     psadmin -w start -d "${ARR_WEB[$i]}"
-  done  
+  done
 
   # Start Process Scheduler domains
   echo ''
-  for i in "${!ARR_PRCS[@]}" 
-  do
+  for i in "${!ARR_PRCS[@]}"; do
     echo ''
     echo -e "-------------------------------------------------------"
     echo -e ">> Starting Process Scheduler domain:" "${ARR_PRCS[$i]}"
@@ -64,5 +61,5 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo ''
 
     psadmin -p start -d "${ARR_PRCS[$i]}"
-  done  
+  done
 fi
