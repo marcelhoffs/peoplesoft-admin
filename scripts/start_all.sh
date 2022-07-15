@@ -18,7 +18,7 @@ while getopts ':yh' OPTION; do
       echo -e "Usage: start_all.sh [options]"
       echo -e ""
       echo -e "Options:"
-      echo -e "  -y    execute silently"
+      echo -e "  -y    execute without confirmation"
       echo -e "  -h    display this help message"
       exit 0
       ;;
@@ -30,7 +30,7 @@ while getopts ':yh' OPTION; do
 done
 
 # Show interactive if SILENT is not Y
-if [ "$SILENT" = 'Y' ]; then
+if [ "$SILENT" != 'Y' ]; then
   clear
   
   echo -e "╔════════════════════════════════════════════════════════════╗"
