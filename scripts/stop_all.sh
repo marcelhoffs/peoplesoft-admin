@@ -3,8 +3,6 @@
 # Absolute path to this script
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
-CONTINUE='N'
-FORCE='N'
 
 # ================================================================
 # MAIN
