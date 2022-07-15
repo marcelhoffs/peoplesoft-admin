@@ -7,20 +7,45 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 # ================================================================
 # MAIN
 # ================================================================
-clear
 
-echo -e "╔════════════════════════════════════════════════════════════╗"
-echo -e "║ Start all domains                                          ║"
-echo -e "║ -----------------                                          ║"
-echo -e "║ This script will start all web server, application server  ║"
-echo -e "║ and process scheduler domains.                             ║"
-echo -e "╚════════════════════════════════════════════════════════════╝"
-echo ''
-
-while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-  read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
-  CONTINUE=${CONTINUE^^}
+while getopts ':yh' OPTION; do
+  case "$OPTION" in
+    y)
+      SILENT='Y'
+      CONTINUE='Y'
+      ;;
+    h)
+      echo -e "Usage: start_all.sh [options]"
+      echo -e ""
+      echo -e "Options:"
+      echo -e "  -y    execute silently"
+      echo -e "  -h    display this help message"
+      exit 0
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
 done
+
+# Show interactive if SILENT is not Y
+if [ "$SILENT" = 'Y' ]; then
+  clear
+  
+  echo -e "╔════════════════════════════════════════════════════════════╗"
+  echo -e "║ Start all domains                                          ║"
+  echo -e "║ -----------------                                          ║"
+  echo -e "║ This script will start all web server, application server  ║"
+  echo -e "║ and process scheduler domains.                             ║"
+  echo -e "╚════════════════════════════════════════════════════════════╝"
+  echo ''
+  
+  while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
+    read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
+    CONTINUE=${CONTINUE^^}
+  done
+fi
 
 if [ "$CONTINUE" = 'Y' ]; then
   # Get domains
