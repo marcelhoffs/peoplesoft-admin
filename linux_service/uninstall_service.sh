@@ -8,6 +8,7 @@ else
   # Disable and remove service
   systemctl disable peoplesoft.service
   rm -f /etc/systemd/system/peoplesoft.service
+  systemctl daemon-reload
 
   # Remove scripts
   rm -f /usr/bin/start_ps.sh

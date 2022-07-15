@@ -19,5 +19,6 @@ else
   chmod 755 /etc/systemd/system/peoplesoft.service
   
   # Enable service
+  systemctl daemon-reload
   systemctl enable peoplesoft.service
 fi
