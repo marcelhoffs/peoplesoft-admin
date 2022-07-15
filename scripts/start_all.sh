@@ -62,6 +62,7 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo ''
 
     APPEXIT=$(psadmin -c start -d "${ARR_APP[$i]}")
+    echo 'app exit code '$APPEXIT
     #EXITCODE=$((EXITCODE + APPEXIT))
   done
 
