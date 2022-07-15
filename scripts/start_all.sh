@@ -61,9 +61,7 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e "-------------------------------------------------------"
     echo ''
 
-    APPEXIT=$(psadmin -c start -d "${ARR_APP[$i]}")
-    echo 'app exit code '"$APPEXIT"
-    #EXITCODE=$((EXITCODE + APPEXIT))
+    psadmin -c start -d "${ARR_APP[$i]}"
   done
 
   # Start Web Server domains
@@ -74,8 +72,7 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e "-------------------------------------------------------"
     echo ''
 
-    WEBEXIT=$(psadmin -w start -d "${ARR_WEB[$i]}")
-    #EXITCODE=$((EXITCODE + WEBEXIT))
+    psadmin -w start -d "${ARR_WEB[$i]}"
   done
 
   # Start Process Scheduler domains
@@ -87,8 +84,7 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e "-------------------------------------------------------"
     echo ''
 
-    PRCEXIT=$(psadmin -p start -d "${ARR_PRCS[$i]}")
-    #EXITCODE=$((EXITCODE + PRCEXIT))
+    psadmin -p start -d "${ARR_PRCS[$i]}"
   done
 
   echo ''
@@ -96,6 +92,4 @@ if [ "$CONTINUE" = 'Y' ]; then
   echo -e ">> DONE"
   echo -e "-------------------------------------------------------"
   echo ''
-
-  #echo "$EXITCODE"
 fi
