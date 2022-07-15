@@ -3,7 +3,6 @@
 # Absolute path to this script
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
-EXITCODE=0
 
 # ================================================================
 # MAIN
