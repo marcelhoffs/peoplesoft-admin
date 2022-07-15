@@ -3,31 +3,62 @@
 # Absolute path to this script
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
+CONTINUE='N'
+FORCE='N'
 
 # ================================================================
 # MAIN
 # ================================================================
-clear
 
-echo -e "╔════════════════════════════════════════════════════════════╗"
-echo -e "║ Stop all domains                                           ║"
-echo -e "║ ----------------                                           ║"
-echo -e "║ This script will stop all web server, application server   ║"
-echo -e "║ and process scheduler domains.                             ║"
-echo -e "╚════════════════════════════════════════════════════════════╝"
-echo ''
-
-while [ "$FORCE" != 'Y' ] && [ "$FORCE" != 'N' ]; do
-  read -r -p 'Do you want to forcefully shutdown? [Y/N]: ' FORCE
-  FORCE=${FORCE^^}
+while getopts ':yfh' OPTION; do
+  case "$OPTION" in
+    y)
+      SILENT='Y'
+      CONTINUE='Y'
+      ;;
+    f)
+      FORCE='Y'
+      ;;
+    h)
+      echo -e "Usage: start_all.sh [options]"
+      echo -e ""
+      echo -e "Options:"
+      echo -e "  -y    execute without confirmation"
+      echo -e "  -f    forcefully shutdown services"
+      echo -e "  -h    display this help message"
+      exit 0
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
 done
 
-echo ''
-
-while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-  read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
-  CONTINUE=${CONTINUE^^}
-done
+# Show interactive if SILENT is not Y
+if [ "$SILENT" != 'Y' ]; then
+  clear
+  
+  echo -e "╔════════════════════════════════════════════════════════════╗"
+  echo -e "║ Stop all domains                                           ║"
+  echo -e "║ ----------------                                           ║"
+  echo -e "║ This script will stop all web server, application server   ║"
+  echo -e "║ and process scheduler domains.                             ║"
+  echo -e "╚════════════════════════════════════════════════════════════╝"
+  echo ''
+  
+  while [ "$FORCE" != 'Y' ] && [ "$FORCE" != 'N' ]; do
+    read -r -p 'Do you want to forcefully shutdown? [Y/N]: ' FORCE
+    FORCE=${FORCE^^}
+  done
+  
+  echo ''
+  
+  while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
+    read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
+    CONTINUE=${CONTINUE^^}
+  done
+fi
 
 # Determine shutdown command
 if [ "$FORCE" = 'Y' ]; then
