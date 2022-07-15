@@ -3,6 +3,7 @@
 # Absolute path to this script
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
+EXITCODE=0
 
 # ================================================================
 # MAIN
@@ -60,7 +61,8 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e "-------------------------------------------------------"
     echo ''
 
-    psadmin -c start -d "${ARR_APP[$i]}"
+    APPEXIT=$(psadmin -c start -d "${ARR_APP[$i]}")
+    EXITCODE=$(( $EXITCODE + $APPEXIT))
   done
 
   # Start Web Server domains
@@ -71,7 +73,8 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e "-------------------------------------------------------"
     echo ''
 
-    psadmin -w start -d "${ARR_WEB[$i]}"
+    WEBEXIT=$(psadmin -w start -d "${ARR_WEB[$i]}")
+    EXITCODE=$(( $EXITCODE + $WEBEXIT))
   done
 
   # Start Process Scheduler domains
@@ -83,7 +86,8 @@ if [ "$CONTINUE" = 'Y' ]; then
     echo -e "-------------------------------------------------------"
     echo ''
 
-    psadmin -p start -d "${ARR_PRCS[$i]}"
+    PRCEXIT=$(psadmin -p start -d "${ARR_PRCS[$i]}")
+    EXITCODE=$(( $EXITCODE + $PRCEXIT))
   done
 
   echo ''
@@ -91,4 +95,6 @@ if [ "$CONTINUE" = 'Y' ]; then
   echo -e ">> DONE"
   echo -e "-------------------------------------------------------"
   echo ''
+
+  echo "$EXITCODE"
 fi
