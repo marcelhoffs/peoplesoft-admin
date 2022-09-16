@@ -7,9 +7,8 @@ Wants=network-online.target oracledb.service
 Type=oneshot
 User=psoft
 Group=psoft
-WorkingDirectory=/home/psadm2/psft/pt/8.58/appserv/APPDOM
-ExecStart=/app/scripts/start_all.sh -y
-ExecStop=/app/scripts/stop_all.sh -y
+ExecStart=/app/psoft/peopletools-admin/scripts/start_all.sh -y
+ExecStop=/app/psoft/peopletools-admin/stop_all.sh -y
 RemainAfterExit=yes
 TimeoutSec=180
 
