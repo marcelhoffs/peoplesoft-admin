@@ -9,7 +9,6 @@ LimitSTACK=10485760:33554432
 LimitMEMLOCK=infinity
 
 Type=forking
-
 User=psoft
 Group=psoft
 

@@ -4,13 +4,14 @@ After=network-online.target oracledb.service
 Wants=network-online.target oracledb.service
 
 [Service]
-Type=oneshot
+Type=forking
 User=psoft
 Group=psoft
-ExecStart=/app/psoft/peopletools-admin/scripts/start_all.sh -y
-ExecStop=/app/psoft/peopletools-admin/stop_all.sh -y
+
+ExecStart=/app/psoft/peopletools-admin/systemd/service_start.sh
+ExecStop=/app/psoft/peopletools-admin/systemd/service_stop.sh
+
 RemainAfterExit=yes
-TimeoutSec=180
 
 [Install]
 WantedBy=multi-user.target
