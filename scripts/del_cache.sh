@@ -101,32 +101,57 @@ delete_cache() {
 # ================================================================
 # MAIN
 # ================================================================
-clear
 
-echo -e "╔════════════════════════════════════════════════════════════╗"
-echo -e "║ Delete cache files                                         ║"
-echo -e "║ ------------------                                         ║"
-echo -e "║ This script will delete all web server, application server ║"
-echo -e "║ and process scheduler cache files.                         ║"
-echo -e "╚════════════════════════════════════════════════════════════╝"
-
-# Fetch all domains and base paths
-source $SCRIPTPATH/functions.sh
-get_domains
-get_domain_base_paths
-
-# TEST mode, just to show the paths that will be deleted
-delete_cache 'Y'
-
-echo ''
-echo -e "--------------------------------------------------------------"
-echo ''
-
-# Ask to continue
-while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
-  read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
-  CONTINUE=${CONTINUE^^}
+while getopts ':yh' OPTION; do
+  case "$OPTION" in
+    y)
+      SILENT='Y'
+      CONTINUE='Y'
+      ;;
+    h)
+      echo -e "Usage: del_cache.sh [options]"
+      echo -e ""
+      echo -e "Options:"
+      echo -e "  -y    execute without confirmation"
+      echo -e "  -h    display this help message"
+      exit 0
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
 done
+
+# Show interactive if SILENT is not Y
+if [ "$SILENT" != 'Y' ]; then
+  clear
+
+  echo -e "╔════════════════════════════════════════════════════════════╗"
+  echo -e "║ Delete cache files                                         ║"
+  echo -e "║ ------------------                                         ║"
+  echo -e "║ This script will delete all web server, application server ║"
+  echo -e "║ and process scheduler cache files.                         ║"
+  echo -e "╚════════════════════════════════════════════════════════════╝"
+
+  # Fetch all domains and base paths
+  source $SCRIPTPATH/functions.sh
+  get_domains
+  get_domain_base_paths
+
+  # TEST mode, just to show the paths that will be deleted
+  delete_cache 'Y'
+
+  echo ''
+  echo -e "--------------------------------------------------------------"
+  echo ''
+
+  # Ask to continue
+  while [ "$CONTINUE" != 'Y' ] && [ "$CONTINUE" != 'N' ]; do
+    read -r -p 'Are you sure you want to continue? [Y/N]: ' CONTINUE
+    CONTINUE=${CONTINUE^^}
+  done
+fi
 
 # Delete cache
 if [ "$CONTINUE" = 'Y' ]; then
