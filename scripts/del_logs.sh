@@ -124,6 +124,11 @@ while getopts ':yh' OPTION; do
   esac
 done
 
+# Fetch all domains and base paths
+source $SCRIPTPATH/functions.sh
+get_domains
+get_domain_base_paths
+
 # Show interactive if SILENT is not Y
 if [ "$SILENT" != 'Y' ]; then
   clear
@@ -134,11 +139,6 @@ if [ "$SILENT" != 'Y' ]; then
   echo -e "║ This script will delete all web server, application server ║"
   echo -e "║ and process scheduler log files.                           ║"
   echo -e "╚════════════════════════════════════════════════════════════╝"
-
-  # Fetch all domains and base paths
-  source $SCRIPTPATH/functions.sh
-  get_domains
-  get_domain_base_paths
 
   # TEST mode, just to show the paths that will be deleted
   delete_logs 'Y'
