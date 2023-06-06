@@ -8,8 +8,8 @@ Type=forking
 User=psoft
 Group=psoft
 
-ExecStart=/app/psoft/peopletools-admin/systemd/service_start.sh
-ExecStop=/app/psoft/peopletools-admin/systemd/service_stop.sh
+ExecStart=/app/peopletools-admin/systemd/service_start.sh
+ExecStop=/app/peopletools-admin/systemd/service_stop.sh
 
 RemainAfterExit=yes
 
