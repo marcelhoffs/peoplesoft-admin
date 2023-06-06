@@ -4,7 +4,6 @@ After=network-online.target oracledb.service
 Wants=network-online.target oracledb.service
 
 [Service]
-EnvironmentFile=/app/psoft/pt/psft_env.sh
 Type=forking
 User=psoft
 Group=psoft
