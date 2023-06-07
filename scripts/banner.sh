@@ -5,6 +5,11 @@ CYAN='\e[1;36m'
 WHITE='\e[1;37m'
 NC='\e[0m'
 
+# Source if needed
+if [ "x$IS_PS_PLT" != "xY" ]; then
+  source /app/psoft/pt/psft_env.sh
+fi
+
 # Clear the screen
 clear
 
