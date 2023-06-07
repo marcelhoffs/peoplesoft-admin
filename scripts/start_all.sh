@@ -48,6 +48,11 @@ if [ "$SILENT" != 'Y' ]; then
 fi
 
 if [ "$CONTINUE" = 'Y' ]; then
+  # Source if needed
+  if [ "x$IS_PS_PLT" != "xY" ]; then
+    source /app/psoft/pt/psft_env.sh
+  fi
+
   # Get domains
   source /app/psoft/pt/psft_env.sh
   source $SCRIPTPATH/functions.sh
