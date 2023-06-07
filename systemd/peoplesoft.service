@@ -4,7 +4,7 @@ After=network-online.target oracledb.service
 Wants=network-online.target oracledb.service
 
 [Service]
-Type=forking
+Type=oneshot
 User=psoft
 Group=psoft
 ExecStart=/app/peoplesoft-admin/systemd/service_start.sh
