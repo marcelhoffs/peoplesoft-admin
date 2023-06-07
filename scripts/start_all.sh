@@ -54,7 +54,6 @@ if [ "$CONTINUE" = 'Y' ]; then
   fi
 
   # Get domains
-  source /app/psoft/pt/psft_env.sh
   source $SCRIPTPATH/functions.sh
   get_domains
 
