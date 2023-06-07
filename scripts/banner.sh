@@ -5,7 +5,12 @@ CYAN='\e[1;36m'
 WHITE='\e[1;37m'
 NC='\e[0m'
 
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
 # Get environment
+source $SCRIPTPATH/functions.sh
 get_environment
 
 # Clear the screen
