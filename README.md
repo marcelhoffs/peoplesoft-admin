@@ -5,7 +5,7 @@ The following scripts are provided.
 Script | Comment
 --------- | ----
 banner.sh | Displays a welcome banner
-del_cache.sh | Delete all cache files
+del_cache.sh | Deletes all cache files
 del_logs.sh | Deletes all log files
 functions.sh | Generic functions used by the other scripts
 start_all.sh | Starts all PeopleSoft web, app and process domains on the server
