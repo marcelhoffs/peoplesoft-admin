@@ -12,3 +12,6 @@ start_all.sh | Starts all PeopleSoft web, app and process domains on the server
 stop_all.sh | Stops all PeopleSoft web, app and process domains on the server
 
 # Systemd services
+## Oracle Database
+
+## PeopleSoft PIA
