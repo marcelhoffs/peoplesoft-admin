@@ -70,6 +70,11 @@ else
 fi
 
 if [ "$CONTINUE" = 'Y' ]; then
+  # Source if needed
+  if [ "x$IS_PS_PLT" != "xY" ]; then
+    source /app/psoft/pt/psft_env.sh
+  fi
+  
   # Get domains
   source $SCRIPTPATH/functions.sh
   get_domains
