@@ -39,3 +39,16 @@ get_domain_base_paths() {
 }
 
 # ----------------------------------------------------------------
+
+get_environment() {
+  # Absolute path to this script
+  SCRIPT=$(readlink -f "$0")
+  SCRIPTPATH=$(dirname "$SCRIPT")
+
+  # Source if needed
+  if [ "x$IS_PS_PLT" != "xY" ]; then
+    source $SCRIPTPATH/psft_env.sh
+  fi
+}
+
+# ----------------------------------------------------------------
