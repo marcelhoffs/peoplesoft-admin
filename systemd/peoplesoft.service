@@ -7,8 +7,8 @@ Wants=network-online.target oracledb.service
 Type=oneshot
 User=psoft
 Group=psoft
-ExecStart=/app/peoplesoft-admin/systemd/service_start.sh
-ExecStop=/app/peoplesoft-admin/systemd/service_stop.sh
+ExecStart=/app/peoplesoft-admin/scripts/start_all.sh -y
+ExecStop=/app/peoplesoft-admin/scripts/stop_all.sh -y
 RemainAfterExit=yes
 
 [Install]
