@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Variables
+JAVABIN="/app/psoft/pt/jdk/bin"
 DOMAIN="<your domain>"
 ALIAS="peoplesoft"
 PSKEYSTORE="<absolute path to pskey location>"
@@ -22,13 +23,13 @@ openssl pkcs12 \
 chmod 755 $CERTKEYSTORE
 
 # Delete existing certificate from peoplesoft keystore
-/app/psoft/pt/jdk/bin/keytool -delete \
+$JAVABIN/keytool -delete \
 -keystore $PSKEYSTORE \
 -alias $ALIAS \
 -storepass $PASSWORD
 
 # Add certificate to keystore
-/app/psoft/pt/jdk/bin/keytool -importkeystore \
+$JAVABIN/keytool -importkeystore \
 -destkeystore $PSKEYSTORE \
 -deststorepass $PASSWORD \
 -srckeystore $CERTKEYSTORE \
