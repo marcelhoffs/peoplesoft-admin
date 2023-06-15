@@ -37,3 +37,13 @@ Run the following command to renew the certificate and trigger the post hook scr
 ```
 sudo certbot renew --force-renew
 ```
+
+# PeopleSoft configuration
+Now procede as normal and configure PeopleSoft to use HTTPS.
+- Weblogic Console
+- Integration Gateway
+- Service Configuration
+- Report Node
+- Local Nodes
+- Web Profile
+- Digital Certificates (import root and intermediate certificate)
