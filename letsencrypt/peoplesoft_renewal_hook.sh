@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Variables
-DOMAIN="peoplesoft.example.com"
+DOMAIN="<your domain>"
 ALIAS="peoplesoft"
-PSKEYSTORE="/app/psoft/psconfig/webserv/peoplesoft/piaconfig/keystore/pskey"
+PSKEYSTORE="<absolute path to pskey location>"
 CERTKEYSTORE="/etc/letsencrypt/live/"$DOMAIN"/"$ALIAS".pfx"
 CERTPRIVKEY="/etc/letsencrypt/live/"$DOMAIN"/privkey.pem"
 CERTSIGNED="/etc/letsencrypt/live/"$DOMAIN"/cert.pem"
-PASSWORD="password"
+PASSWORD="<your pskey password>"
 
 # Generate PKCS12 file for PeopleSoft
 openssl pkcs12 \

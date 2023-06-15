@@ -12,7 +12,7 @@ nano ~/cloudflare.ini
 Then paste in the following content.
 ```
 # Cloudflare API token used by Certbot
-dns_cloudflare_api_token = IP8u9LEzu4EeFgP1O9Z6j9E4-5iKivaiNXkP96io
+dns_cloudflare_api_token = <Cloudflare API token>
 ```
 
 # Request a certificate
@@ -21,5 +21,19 @@ Execute the following command to request a certificate for your PeopleSoft envir
 sudo certbot certonly \
 --dns-cloudflare \
 --dns-cloudflare-credentials ~/cloudflare.ini \
--d peoplesoft.example.com
+-d <your domain>
+```
+
+# Renewal post hook script
+Modify the **peoplesoft_renewal_hook.sh** script. Adapt the variables DOMAIN, PSKEYSTORE and PASSWORD appropriately.
+Copy the **peoplesoft_renewal_hook.sh** script to the following directory: **/etc/letsencrypt/renewal-hooks/post**
+Set the script permissions:
+```
+sudo chmod 700 /etc/letsencrypt/renewal-hooks/post/peoplesoft_renewal_hook.sh
+```
+
+# Renew the certificate
+Run the following command to renew the certificate and trigger the post hook script. This will get a new certificate and import this certificate into the peoplesoft keystore (pskey).
+```
+sudo certbot renew --force-renew
 ```
