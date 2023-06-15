@@ -25,7 +25,7 @@ sudo certbot certonly \
 ```
 
 # Renewal post hook script
-Modify the **peoplesoft_renewal_hook.sh** script. Adapt the variables DOMAIN, PSKEYSTORE and PASSWORD appropriately.  
+Modify the **peoplesoft_renewal_hook.sh** script. Adapt the variables DOMAIN, JAVABIN, PSKEYSTORE and PASSWORD appropriately.  
 Copy the **peoplesoft_renewal_hook.sh** script to the following directory: **/etc/letsencrypt/renewal-hooks/post**  
 Set the script permissions:
 ```

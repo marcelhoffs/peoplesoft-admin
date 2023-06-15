@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-JAVABIN="/app/psoft/pt/jdk/bin"
+JAVABIN="<path to java bin>"
 DOMAIN="<your domain>"
 ALIAS="peoplesoft"
 PSKEYSTORE="<absolute path to pskey location>"
