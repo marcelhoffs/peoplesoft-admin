@@ -14,6 +14,10 @@ Then paste in the following content.
 # Cloudflare API token used by Certbot
 dns_cloudflare_api_token = <Cloudflare API token>
 ```
+Set permissions.
+```
+chmod 600 cloudflare.ini
+```
 
 # Request a certificate
 Execute the following command to request a certificate for your PeopleSoft environment through Let's Encrypt.
