@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Variables
-JAVABIN="/app/elk/pt/es_jdk11.0.18/bin"
-DOMAIN="elk.corp.redboxconsulting.be"
+JAVABIN="<path to java bin>"
+DOMAIN="<your domain>"
 ALIAS="elk"
-ESKEYSTORE="/app/elk/pt/elasticsearch7.10.0/config/pskey"
 CERTKEYSTORE="/etc/letsencrypt/live/"$DOMAIN"/"$ALIAS".pfx"
 CERTPRIVKEY="/etc/letsencrypt/live/"$DOMAIN"/privkey.pem"
 CERTSIGNED="/etc/letsencrypt/live/"$DOMAIN"/cert.pem"
+CERTCHAIN="/etc/letsencrypt/live/"$DOMAIN"/chain.pem"
 PASSWORD="awrFQ8H1"
 
 # Generate PKCS12 file for PeopleSoft
@@ -19,26 +19,23 @@ openssl pkcs12 \
 -name $ALIAS \
 -password pass:$PASSWORD
 
+# Import root/intermediate chain
+$JAVABIN/keytool -delete \
+-keystore $CERTKEYSTORE \
+-import \
+-alias rootintermediate \
+-trustcacerts \
+-file $CERTCHAIN
+-storepass $PASSWORD
+
 # Change PKCS12 file permissions
 chmod 755 $CERTKEYSTORE
 
-# Delete existing certificate from peoplesoft keystore
-$JAVABIN/keytool -delete \
--keystore $ESKEYSTORE \
--alias $ALIAS \
--storepass $PASSWORD
-
-# Add certificate to keystore
-$JAVABIN/keytool -importkeystore \
--destkeystore $ESKEYSTORE \
--deststorepass $PASSWORD \
--srckeystore $CERTKEYSTORE \
--srcstorepass $PASSWORD \
--srcstoretype PKCS12 \
--alias $ALIAS
+# Copy keystore for Elasticsearch
+cp $CERTKEYSTORE /app/elk/pt/elasticsearch7.10.0/config
 
 # Copy certificate for Kibana
-cp $ESKEYSTORE /app/elk/pt/Kibana7.10.0/config
+cp $CERTKEYSTORE /app/elk/pt/Kibana7.10.0/config
 cp $CERTSIGNED /app/elk/pt/Kibana7.10.0/config
 chmod 644 *.pem
 
