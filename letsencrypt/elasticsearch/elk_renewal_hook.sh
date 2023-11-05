@@ -20,12 +20,12 @@ openssl pkcs12 \
 -password pass:$PASSWORD
 
 # Import root/intermediate chain
-$JAVABIN/keytool -delete \
+$JAVABIN/keytool \
 -keystore $CERTKEYSTORE \
 -import \
 -alias rootintermediate \
 -trustcacerts \
--file $CERTCHAIN
+-file $CERTCHAIN \
 -storepass $PASSWORD
 
 # Change PKCS12 file permissions
@@ -42,6 +42,6 @@ chmod 644 *.pem
 openssl pkcs12 -in /app/elk/pt/Kibana7.10.0/config/pskey -out /app/elk/pt/Kibana7.10.0/config/pskey.pem 
 openssl rsa -in /app/elk/pt/Kibana7.10.0/config/pskey.pem -out /app/elk/pt/Kibana7.10.0/config/pskey.key
 
-# Restart Elasticsearch
+# Restart Elasticsearch & Kibana
 systemctl restart elasticsearch.service
 systemctl restart kibana.service
