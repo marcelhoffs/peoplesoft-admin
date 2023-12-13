@@ -10,6 +10,10 @@ CERTPRIVKEY="/etc/letsencrypt/live/"$DOMAIN"/privkey.pem"
 CERTSIGNED="/etc/letsencrypt/live/"$DOMAIN"/cert.pem"
 PASSWORD="<password>"
 
+# ---------------------------------------------------------------
+# Generate keystore for PeopleSoft
+# ---------------------------------------------------------------
+
 # Generate PKCS12 file for PeopleSoft
 openssl pkcs12 \
 -export \

@@ -12,6 +12,10 @@ CERTSIGNED="/etc/letsencrypt/live/"$DOMAIN"/cert.pem"
 CERTCHAIN="/etc/letsencrypt/live/"$DOMAIN"/chain.pem"
 PASSWORD="<password>"
 
+# ---------------------------------------------------------------
+# Generate keystore for OpenSearch
+# ---------------------------------------------------------------
+
 # Generate PKCS12 file for PeopleSoft
 openssl pkcs12 \
 -export \
@@ -35,6 +39,10 @@ chmod 755 $CERTKEYSTORE
 
 # Copy keystore for OpenSearch
 cp $CERTKEYSTORE $OS/config
+
+# ---------------------------------------------------------------
+# Generate keystore for OpenSearch Dashboards
+# ---------------------------------------------------------------
 
 # Convert certificates and set permissions for OpenSearch Dashboards
 openssl pkcs12 -in $CERTKEYSTORE -out $OSD/config/pskey.pem -passin pass:$PASSWORD -passout pass:$PASSWORD
