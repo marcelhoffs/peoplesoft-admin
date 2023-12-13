@@ -8,7 +8,7 @@ PSKEYSTORE="<absolute path to pskey location>"
 CERTKEYSTORE="/etc/letsencrypt/live/"$DOMAIN"/"$ALIAS".pfx"
 CERTPRIVKEY="/etc/letsencrypt/live/"$DOMAIN"/privkey.pem"
 CERTSIGNED="/etc/letsencrypt/live/"$DOMAIN"/cert.pem"
-PASSWORD="<your pskey password>"
+PASSWORD="<password>"
 
 # Generate PKCS12 file for PeopleSoft
 openssl pkcs12 \
