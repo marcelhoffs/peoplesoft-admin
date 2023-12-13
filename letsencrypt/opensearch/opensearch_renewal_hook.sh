@@ -45,9 +45,11 @@ cp $CERTKEYSTORE $OS/config
 # ---------------------------------------------------------------
 
 # Convert certificates and set permissions for OpenSearch Dashboards
-openssl pkcs12 -in $CERTKEYSTORE -out $OSD/config/pskey.pem -passin pass:$PASSWORD -passout pass:$PASSWORD
-openssl rsa -in $OSD/config/pskey.pem -out $OSD/config/pskey.key -passin pass:$PASSWORD
-chmod 644 $OSD/config/pskey.*
+openssl pkcs12 -in $CERTKEYSTORE -out $OSD/config/osd.pem -passin pass:$PASSWORD -passout pass:$PASSWORD
+openssl rsa -in $OSD/config/osd.pem -out $OSD/config/osd.key -passin pass:$PASSWORD
+cp $CERTSIGNED $OSD/config/osd.cer
+chmod 644 $OSD/config/osd.key
+rm $OSD/config/osd.pem
 
 # Restart OpenSearch & OpenSearch Dashboards
 systemctl restart opensearch.service
