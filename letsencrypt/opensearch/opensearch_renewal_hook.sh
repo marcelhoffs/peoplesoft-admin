@@ -10,6 +10,8 @@ CERTKEYSTORE="/etc/letsencrypt/live/"$DOMAIN"/"$ALIAS".pfx"
 CERTPRIVKEY="/etc/letsencrypt/live/"$DOMAIN"/privkey.pem"
 CERTSIGNED="/etc/letsencrypt/live/"$DOMAIN"/cert.pem"
 CERTCHAIN="/etc/letsencrypt/live/"$DOMAIN"/chain.pem"
+LEROOT="/etc/letsencrypt/live/"$DOMAIN"/le-root.pem"
+LEINTERMEDIATE="/etc/letsencrypt/live/"$DOMAIN"/le-intermediate.pem"
 PASSWORD="<password>"
 
 # ---------------------------------------------------------------
@@ -25,14 +27,29 @@ openssl pkcs12 \
 -name $ALIAS \
 -password pass:$PASSWORD
 
-# Import root/intermediate chain
+# Download root and intermediate certificates for LetsEncrypt
+curl https://letsencrypt.org/certs/isrg-root-x1-cross-signed.pem --output $LEROOT
+curl https://letsencrypt.org/certs/lets-encrypt-r3.pem --output $LEINTERMEDIATE
+
+# Import root cert
 $JAVABIN/keytool \
 -keystore $CERTKEYSTORE \
 -import \
--alias rootintermediate \
+-alias le-root \
 -trustcacerts \
--file $CERTCHAIN \
--storepass $PASSWORD
+-file $LEROOT \
+-storepass $PASSWORD \
+-noprompt
+
+# Import intermediate cert
+$JAVABIN/keytool \
+-keystore $CERTKEYSTORE \
+-import \
+-alias le-intermediate \
+-trustcacerts \
+-file $LEINTERMEDIATE \
+-storepass $PASSWORD \
+-noprompt
 
 # Change PKCS12 file permissions
 chmod 755 $CERTKEYSTORE
