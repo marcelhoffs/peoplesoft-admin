@@ -70,6 +70,8 @@ else
 fi
 
 if [ "$CONTINUE" = 'Y' ]; then
+  unset which
+  
   # Get domains
   source $SCRIPTPATH/functions.sh
   get_environment
